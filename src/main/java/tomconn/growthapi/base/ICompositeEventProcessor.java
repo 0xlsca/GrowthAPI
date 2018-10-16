@@ -30,15 +30,50 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
      * Called by {@link IEventHandler} after it has made its decision
      *
      * @param assessment the resulting assessment by the {@link IEventHandler}
+     * @return
+     * <ul>
+     *      <li>
+     *          true
+     *          <ul>
+     *              <li>
+     *                  if the resulting {@link EventFutureAssessment} was successfully consumed
+     *              </li>
+     *          </ul>
+     *      </li>
+     *      <li>
+     *          false
+     *          <ul>
+     *              <li>
+     *                  if <code>assessment</code> was null
+     *              </li>
+     *              <li>
+     *                  in all other cases
+     *              </li>
+     *          </ul>
+     *      </li>
+     * </ul>
      */
-    default void consumeResultingAssessment(EventFutureAssessment assessment) {
+    default boolean consumeResultingAssessment(EventFutureAssessment assessment) {
+
         Consumer<EventFutureAssessment> resultingAssessmentConsumer = this.getResultingAssessmentConsumer();
-        if (resultingAssessmentConsumer != null) {
+        if (resultingAssessmentConsumer != null && assessment != null) {
             resultingAssessmentConsumer.accept(assessment);
+            return true;
         }
+        return false;
     }
 
-    Consumer<EventFutureAssessment> getResultingAssessmentConsumer();
+    /**
+     * Returns a consumer which will consume the resulting {@link EventFutureAssessment} of a  decision
+     *
+     * @return a consumer which accepts {@link EventFutureAssessment}
+     * @implNote Returns a consumer which does nothing with the value provided
+     * @implSpec This method should always return a non-null value
+     */
+    default Consumer<EventFutureAssessment> getResultingAssessmentConsumer() {
+        return (ignored) -> {
+        };
+    }
 
     boolean setResultingAssessmentConsumer(Consumer<EventFutureAssessment> consumer);
 
@@ -66,7 +101,7 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
      * </ul>
      */
     default boolean isEligible(E event) {
-        return this.isEligible(this.getPackageFactory().manufacture(event));
+        return event != null && this.isEligible(this.getPackageFactory().manufacture(event));
     }
 
     /**

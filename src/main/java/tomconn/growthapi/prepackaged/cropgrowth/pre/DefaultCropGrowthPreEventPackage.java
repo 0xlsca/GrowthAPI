@@ -73,4 +73,9 @@ public class DefaultCropGrowthPreEventPackage implements IGrowthRequirementParce
     public Class<? extends Block> getBlockClass() {
         return blockClass.get();
     }
+
+    @Override
+    public Class<Pre> getEventClass() {
+        return Pre.class;
+    }
 }

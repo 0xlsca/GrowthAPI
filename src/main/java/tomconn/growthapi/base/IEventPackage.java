@@ -7,5 +7,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  */
 public interface IEventPackage<E extends Event> {
 
-
+    /**
+     * @return The class of the event with which this parcel is associated with
+     */
+    Class<E> getEventClass();
 }
