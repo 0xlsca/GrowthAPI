@@ -2,25 +2,26 @@ package tomconn.growthapi.prepackaged.cropgrowth.pre;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.base.EventFutureAssessment;
-import tomconn.growthapi.base.IEventPackageFactory;
-import tomconn.growthapi.prepackaged.DefaultEventFutureDecisionMakers;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment;
+import tomconn.growthapi.base.parcel.IEventParcelFactory;
+import tomconn.growthapi.prepackaged.DefaultEventFutureLogicUnits;
 import tomconn.growthapi.prepackaged.cropgrowth.ICropGrowthEventProcessor;
-import tomconn.growthapi.prepackaged.cropgrowth.IGrowthRequirementParcel;
+import tomconn.growthapi.prepackaged.cropgrowth.ICropGrowthRequirementParcel;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class DefaultCropGrowthPreProcessor<P extends IGrowthRequirementParcel<Pre>> implements ICropGrowthEventProcessor<Pre, P> {
+public class DefaultCropGrowthPreProcessor<P extends ICropGrowthRequirementParcel<Pre>> implements ICropGrowthEventProcessor<Pre, P> {
 
     private final Map<Class<? extends Block>, List<Predicate<P>>> classPredicateMap = new HashMap<>();
     private final Set<Class<? extends Block>> classSet = classPredicateMap.keySet();
-    private final IEventPackageFactory<Pre, P> packageFactory;
+    private final IEventParcelFactory<Pre, P> packageFactory;
     private Consumer<EventFutureAssessment> resultingAssessmentConsumer = (e) -> {
     };
 
-    public DefaultCropGrowthPreProcessor(IEventPackageFactory<Pre, P> packageFactory) {
+    public DefaultCropGrowthPreProcessor(IEventParcelFactory<Pre, P> packageFactory) {
         this.packageFactory = packageFactory;
     }
 
@@ -30,7 +31,7 @@ public class DefaultCropGrowthPreProcessor<P extends IGrowthRequirementParcel<Pr
             return ICropGrowthEventProcessor.predicatesMet(
                     parcel,
                     classPredicateMap.get(parcel.getBlockClass()),
-                    DefaultEventFutureDecisionMakers.LOGIC_AND_DENY,
+                    DefaultEventFutureLogicUnits.LOGIC_AND_DENY,
                     EventFutureAssessment.ALLOW,
                     EventFutureAssessment.DENY
             );
@@ -50,7 +51,7 @@ public class DefaultCropGrowthPreProcessor<P extends IGrowthRequirementParcel<Pr
     }
 
     @Override
-    public boolean canProcess(Class<Pre> eventclass) {
+    public boolean canProcess(Class<? extends Event> eventclass) {
         return eventclass == Pre.class;
     }
 
@@ -60,7 +61,7 @@ public class DefaultCropGrowthPreProcessor<P extends IGrowthRequirementParcel<Pr
     }
 
     @Override
-    public IEventPackageFactory<Pre, P> getPackageFactory() {
+    public IEventParcelFactory<Pre, P> getPackageFactory() {
         return packageFactory;
     }
 
