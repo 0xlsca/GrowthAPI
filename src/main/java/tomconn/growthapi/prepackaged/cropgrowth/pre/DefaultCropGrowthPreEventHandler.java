@@ -1,10 +1,10 @@
 package tomconn.growthapi.prepackaged.cropgrowth.pre;
 
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.base.ICompositeBlockBasedEventProcessor;
-import tomconn.growthapi.base.IEventFutureDecisionMaker;
-import tomconn.growthapi.base.IEventHandler;
-import tomconn.growthapi.prepackaged.DefaultEventFutureDecisionMakers;
+import tomconn.growthapi.base.decision_logic_unit.IEventFutureDecisionLogicUnit;
+import tomconn.growthapi.base.handler.IEventHandler;
+import tomconn.growthapi.base.processor.ICompositeBlockBasedEventProcessor;
+import tomconn.growthapi.prepackaged.DefaultEventFutureLogicUnits;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DefaultCropGrowthPreEventHandler implements IEventHandler<Pre, ICompositeBlockBasedEventProcessor<Pre, ?>> {
 
-    private IEventFutureDecisionMaker decisionMaker = DefaultEventFutureDecisionMakers.LOGIC_OR_DENY;
+    private IEventFutureDecisionLogicUnit decisionMaker = DefaultEventFutureLogicUnits.LOGIC_OR_DENY;
     private List<ICompositeBlockBasedEventProcessor<Pre, ?>> processors = new ArrayList<>();
 
     @Override
@@ -29,13 +29,13 @@ public class DefaultCropGrowthPreEventHandler implements IEventHandler<Pre, ICom
     }
 
     @Override
-    public boolean setEventFutureDecisionMaker(@Nonnull IEventFutureDecisionMaker decisionMaker) {
+    public boolean setEventFutureDecisionLogicUnit(@Nonnull IEventFutureDecisionLogicUnit decisionMaker) {
         this.decisionMaker = decisionMaker;
         return true;
     }
 
     @Override
-    public IEventFutureDecisionMaker getEventFutureDecisionMaker() {
+    public IEventFutureDecisionLogicUnit getEventFutureDecisionLogicUnit() {
         return this.decisionMaker;
     }
 
