@@ -2,6 +2,10 @@ package tomconn.growthapi.base;
 
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.decision_logic_unit.IEventFutureDecisionLogicUnit;
+import tomconn.growthapi.base.handler.IEventHandler;
+import tomconn.growthapi.base.manager.IEventManager;
+import tomconn.growthapi.base.processor.ICompositeEventProcessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -81,12 +85,12 @@ public class IEventManagerTestImplementations {
         }
 
         @Override
-        public boolean setEventFutureDecisionMaker(@Nonnull IEventFutureDecisionMaker decisionMaker) {
+        public boolean setEventFutureDecisionLogicUnit(@Nonnull IEventFutureDecisionLogicUnit decisionMaker) {
             return false;
         }
 
         @Override
-        public IEventFutureDecisionMaker getEventFutureDecisionMaker() {
+        public IEventFutureDecisionLogicUnit getEventFutureDecisionLogicUnit() {
             return null;
         }
     }
@@ -118,12 +122,12 @@ public class IEventManagerTestImplementations {
         }
 
         @Override
-        public boolean setEventFutureDecisionMaker(@Nonnull IEventFutureDecisionMaker decisionMaker) {
+        public boolean setEventFutureDecisionLogicUnit(@Nonnull IEventFutureDecisionLogicUnit decisionMaker) {
             return false;
         }
 
         @Override
-        public IEventFutureDecisionMaker getEventFutureDecisionMaker() {
+        public IEventFutureDecisionLogicUnit getEventFutureDecisionLogicUnit() {
             return null;
         }
     }

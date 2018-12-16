@@ -1,6 +1,11 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.handler;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment;
+import tomconn.growthapi.base.decision_logic_unit.IEventFutureDecisionLogicUnit;
+import tomconn.growthapi.base.parcel.IEventParcel;
+import tomconn.growthapi.base.processor.ICompositeBlockBasedEventProcessor;
+import tomconn.growthapi.base.processor.ICompositeEventProcessor;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -11,7 +16,7 @@ import java.util.stream.Collectors;
  * @param <E> the event handled by this handler
  * @param <X> the processor used in this handler
  */
-public interface IEventHandler<E extends Event, X extends ICompositeEventProcessor<E, ? extends IEventPackage<E>>> {
+public interface IEventHandler<E extends Event, X extends ICompositeEventProcessor<E, ? extends IEventParcel<E>>> {
 
 
     /**
@@ -20,7 +25,7 @@ public interface IEventHandler<E extends Event, X extends ICompositeEventProcess
      * @param eventclass the class of the event
      * @return true if and only if this handler can handle events of the passed event class
      */
-    boolean canHandle(@Nonnull Class<E> eventclass);
+    <E extends Event> boolean canHandle(@Nonnull Class<E> eventclass);
 
 
     /**
@@ -30,7 +35,7 @@ public interface IEventHandler<E extends Event, X extends ICompositeEventProcess
      */
     default boolean handleEvent(@Nonnull E event) {
         List<X> eligibles = this.getEligibleProcessors(event);
-        IEventFutureDecisionMaker eventFutureDecisionMaker = this.getEventFutureDecisionMaker();
+        IEventFutureDecisionLogicUnit eventFutureDecisionMaker = this.getEventFutureDecisionLogicUnit();
         if (eligibles != null && eventFutureDecisionMaker != null) {
             EventFutureAssessment assessment = eventFutureDecisionMaker.decide(
                     eligibles
@@ -101,18 +106,46 @@ public interface IEventHandler<E extends Event, X extends ICompositeEventProcess
     }
 
     /**
-     * Sets the {@link IEventFutureDecisionMaker}
+     * Returns a list of all processors which can process events of the passed class
+     *
+     * @param eventClass the event class
+     * @return a {@link List} containing all eligible {@link ICompositeBlockBasedEventProcessor}s
+     */
+    default List<X> getEligibleProcessors(Class<E> eventClass) {
+        List<X> processors = getProcessors();
+        if (processors != null) {
+            return processors.stream()
+                    .filter(p -> p != null && p.canProcess(eventClass))
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    @SuppressWarnings({"unchecked", "Duplicates"})
+    default <P extends IEventParcel<E>> List<ICompositeEventProcessor<E, P>> getEligibleProcessorsByParcel(Class<P> parcelClass) {
+        List<ICompositeEventProcessor<E, P>> processors = (List<ICompositeEventProcessor<E, P>>) getProcessors();
+        if (processors != null) {
+            return processors.stream()
+                    .filter(processor -> processor != null && processor.isEligible(parcelClass))
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Sets the {@link IEventFutureDecisionLogicUnit}
      *
      * @param decisionMaker the decision maker
      * @return true if and only if the decision maker has been set or was successfully swapped to the provided one,
      * false otherwise
      */
-    boolean setEventFutureDecisionMaker(@Nonnull IEventFutureDecisionMaker decisionMaker);
+    boolean setEventFutureDecisionLogicUnit(@Nonnull IEventFutureDecisionLogicUnit decisionMaker);
 
     /**
-     * Returns the currently set {@link IEventFutureDecisionMaker} in case there is one
+     * Returns the currently set {@link IEventFutureDecisionLogicUnit} in case there is one
      *
-     * @return a {@link IEventFutureDecisionMaker} or null, depending on whether there is one set in this instance
+     * @return a {@link IEventFutureDecisionLogicUnit} or null, depending on whether there is one set in this instance
      */
-    IEventFutureDecisionMaker getEventFutureDecisionMaker();
+    IEventFutureDecisionLogicUnit getEventFutureDecisionLogicUnit();
+
 }

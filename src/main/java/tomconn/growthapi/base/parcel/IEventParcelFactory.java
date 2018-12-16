@@ -1,9 +1,9 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.parcel;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @FunctionalInterface
-public interface IEventPackageFactory<E extends Event, P extends IEventPackage<E>> {
+public interface IEventParcelFactory<E extends Event, P extends IEventParcel<E>> {
 
     /**
      * Manufactures a package based on the event

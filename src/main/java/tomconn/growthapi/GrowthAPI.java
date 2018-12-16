@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import tomconn.growthapi.base.IEventManager;
+import tomconn.growthapi.base.manager.IEventManager;
 import tomconn.growthapi.prepackaged.DefaultEventManager;
 import tomconn.growthapi.runtime_tests.RuntimeTest;
 
@@ -22,6 +22,10 @@ public class GrowthAPI {
 
     private static IEventManager eventManager;
 
+    public static IEventManager getManager() {
+        return eventManager;
+    }
+
 
     @Mod.Instance(modId)
     public static GrowthAPI instance;
@@ -29,7 +33,7 @@ public class GrowthAPI {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        eventManager = new DefaultEventManager();
+        eventManager = DefaultEventManager.getInstance();
     }
 
     @Mod.EventHandler

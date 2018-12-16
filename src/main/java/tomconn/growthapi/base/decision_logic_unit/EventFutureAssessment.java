@@ -1,4 +1,4 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.decision_logic_unit;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 

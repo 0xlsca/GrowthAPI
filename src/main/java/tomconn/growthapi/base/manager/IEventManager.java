@@ -1,6 +1,7 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.manager;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.handler.IEventHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;

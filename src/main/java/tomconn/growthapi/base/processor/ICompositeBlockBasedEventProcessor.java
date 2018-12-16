@@ -1,11 +1,12 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.processor;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.parcel.IEventParcel;
 
 import java.util.List;
 
-public interface ICompositeBlockBasedEventProcessor<E extends Event, P extends IEventPackage<E>> extends ICompositeEventProcessor<E, P> {
+public interface ICompositeBlockBasedEventProcessor<E extends Event, P extends IEventParcel<E>> extends ICompositeEventProcessor<E, P> {
 
 
     /**

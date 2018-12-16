@@ -1,9 +1,11 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.decision_logic_unit;
+
+import tomconn.growthapi.base.processor.ICompositeEventProcessor;
 
 import java.util.List;
 
 @FunctionalInterface
-public interface IEventFutureDecisionMaker {
+public interface IEventFutureDecisionLogicUnit {
 
     /**
      * Decides based on the given list of assessments whether or not how the event will be handled

@@ -1,10 +1,14 @@
-package tomconn.growthapi.base;
+package tomconn.growthapi.base.processor;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment;
+import tomconn.growthapi.base.handler.IEventHandler;
+import tomconn.growthapi.base.parcel.IEventParcel;
+import tomconn.growthapi.base.parcel.IEventParcelFactory;
 
 import java.util.function.Consumer;
 
-public interface ICompositeEventProcessor<E extends Event, P extends IEventPackage<E>> {
+public interface ICompositeEventProcessor<E extends Event, P extends IEventParcel<E>> {
 
     /**
      * Called by {@link IEventHandler } before the decision-process starts
@@ -15,11 +19,11 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
     EventFutureAssessment giveAssessmentOnEvent(P parcel);
 
     /**
-     * Event-wrapper for {@link #giveAssessmentOnEvent(IEventPackage)}
+     * Event-wrapper for {@link #giveAssessmentOnEvent(IEventParcel)}
      *
      * @param event the event
      * @return the respective result
-     * @see #giveAssessmentOnEvent(IEventPackage)
+     * @see #giveAssessmentOnEvent(IEventParcel)
      */
     default EventFutureAssessment giveAssessmentOnEvent(E event) {
         return giveAssessmentOnEvent(getPackageFactory().manufacture(event));
@@ -83,7 +87,7 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
      * @param eventclass the class of the {@link Event}
      * @return true if and only if this processor can process events of this kind, false otherwise
      */
-    boolean canProcess(Class<E> eventclass);
+    boolean canProcess(Class<? extends Event> eventclass);
 
     /**
      * Returns true if this processor is eligible for processing the passed event, meaning that it
@@ -100,8 +104,9 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
      * </li>
      * </ul>
      */
-    default boolean isEligible(E event) {
-        return event != null && this.isEligible(this.getPackageFactory().manufacture(event));
+    @SuppressWarnings("unchecked")
+    default <V extends Event> boolean isEligible(V event) {
+        return event != null && this.canProcess(event.getClass()) && this.isEligible(this.getPackageFactory().manufacture((E) event));
     }
 
     /**
@@ -121,11 +126,30 @@ public interface ICompositeEventProcessor<E extends Event, P extends IEventPacka
      */
     boolean isEligible(P parcel);
 
+    /**
+     * Returns a boolean depending on whether or not this processor is eligible for instances of the
+     * provided parcel class
+     *
+     * @param parcelClass the class of the parcel
+     * @return <ul>
+     * <li>true
+     * <ul>
+     * <li> if and only if this processor is eligible for accepting instances of the passed class</li>
+     * </ul></li>
+     * <li>false
+     * <ul>
+     * <li>in all other cases</li>
+     * </ul>
+     * </li>
+     * </ul>
+     */
+    boolean isEligible(Class<? extends IEventParcel<E>> parcelClass);
+
 
     /**
      * Returns the currently used package-factory
      *
-     * @return the currently used {@link IEventPackageFactory}
+     * @return the currently used {@link IEventParcelFactory}
      */
-    IEventPackageFactory<E, P> getPackageFactory();
+    IEventParcelFactory<E, P> getPackageFactory();
 }

@@ -5,6 +5,8 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tomconn.growthapi.base.handler.IEventHandler;
+import tomconn.growthapi.base.manager.IEventManager;
 
 import java.util.List;
 

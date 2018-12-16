@@ -2,15 +2,16 @@ package tomconn.growthapi.prepackaged.cropgrowth;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent;
-import tomconn.growthapi.base.EventFutureAssessment;
-import tomconn.growthapi.base.ICompositeBlockBasedEventProcessor;
-import tomconn.growthapi.base.IEventFutureDecisionMaker;
+import tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment;
+import tomconn.growthapi.base.decision_logic_unit.IEventFutureDecisionLogicUnit;
+import tomconn.growthapi.base.decision_logic_unit.ILocalEventFutureDecisionUnit;
+import tomconn.growthapi.base.processor.ICompositeBlockBasedEventProcessor;
 
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public interface ICropGrowthEventProcessor<E extends BlockEvent.CropGrowEvent, P extends IGrowthRequirementParcel<E>> extends ICompositeBlockBasedEventProcessor<E, P> {
+public interface ICropGrowEventProcessor<E extends BlockEvent.CropGrowEvent, P extends ICropGrowRequirementParcel<E>> extends ICompositeBlockBasedEventProcessor<E, P> {
 
     /**
      * tests the provided predicates with the provided parcel, transforming them into a respective list of
@@ -21,12 +22,12 @@ public interface ICropGrowthEventProcessor<E extends BlockEvent.CropGrowEvent, P
      * @param decisionmaker the decision-maker
      * @param positive      the {@link EventFutureAssessment} to choose in case the tested {@link Predicate} returns true
      * @param negative      the {@link EventFutureAssessment} to choose in case the tested {@link Predicate} returns false
-     * @param <P>           any variation of {@link IGrowthRequirementParcel}
-     * @param <D>           any variation of {@link IEventFutureDecisionMaker}
-     * @return a {@link EventFutureAssessment} returned form the provided {@link IEventFutureDecisionMaker}
+     * @param <P>           any variation of {@link ICropGrowRequirementParcel}
+     * @param <D>           any variation of {@link IEventFutureDecisionLogicUnit}
+     * @return a {@link EventFutureAssessment} returned form the provided {@link IEventFutureDecisionLogicUnit}
      */
-    static <P extends IGrowthRequirementParcel,
-            D extends IEventFutureDecisionMaker>
+    static <P extends ICropGrowRequirementParcel,
+            D extends IEventFutureDecisionLogicUnit>
     EventFutureAssessment predicatesMet(
             P parcel,
             List<Predicate<P>> predicates,
@@ -52,7 +53,7 @@ public interface ICropGrowthEventProcessor<E extends BlockEvent.CropGrowEvent, P
      * </ul>
      */
     @SuppressWarnings("unchecked")
-    boolean registerCrop(Class<? extends Block> cropClass, Predicate<P>... requirements);
+    boolean registerCrop(Class<? extends Block> cropClass, ILocalEventFutureDecisionUnit decisionUnit, Predicate<P>... requirements);
 
     /**
      * Unregisters the provided class and its associated predicates in case it was present

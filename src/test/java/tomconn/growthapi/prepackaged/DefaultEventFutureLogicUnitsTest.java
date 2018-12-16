@@ -2,17 +2,18 @@ package tomconn.growthapi.prepackaged;
 
 import net.minecraft.util.Tuple;
 import org.junit.jupiter.api.Test;
-import tomconn.growthapi.base.EventFutureAssessment;
-import tomconn.growthapi.base.IEventFutureDecisionMaker;
+import tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment;
+import tomconn.growthapi.base.decision_logic_unit.IEventFutureDecisionLogicUnit;
+import tomconn.growthapi.prepackaged.decision_logic_unit.DefaultEventFutureLogicUnits;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tomconn.growthapi.base.EventFutureAssessment.*;
+import static tomconn.growthapi.base.decision_logic_unit.EventFutureAssessment.*;
 
 @SuppressWarnings("WeakerAccess")
-class DefaultEventFutureDecisionMakersTest {
+class DefaultEventFutureLogicUnitsTest {
 
     static List<EventFutureAssessment> MIXED_ASSESSMENTS = Arrays.asList(
             ALLOW,
@@ -124,21 +125,21 @@ class DefaultEventFutureDecisionMakersTest {
      * @param assessments   the array with expected outcomes
      *                      (will throw IOOB-exception if there are less than 10 entries)
      */
-    private void testDecisionMaker(IEventFutureDecisionMaker decisionMaker, EventFutureAssessment... assessments) {
+    private void testDecisionMaker(IEventFutureDecisionLogicUnit decisionMaker, EventFutureAssessment... assessments) {
         for (int i = 0; i < lists.size(); i++) {
             assertEquals(assessments[i], decisionMaker.decide(lists.get(i)));
         }
     }
 
-    private void testDecisionMaker(IEventFutureDecisionMaker decisionMaker, List<Tuple<List<EventFutureAssessment>, EventFutureAssessment>> tuples) {
+    private void testDecisionMaker(IEventFutureDecisionLogicUnit decisionMaker, List<Tuple<List<EventFutureAssessment>, EventFutureAssessment>> tuples) {
         tuples.forEach(t -> assertEquals(t.getSecond(), decisionMaker.decide(t.getFirst())));
     }
 
 
     @Test
     void orDecisionMakers() {
-        IEventFutureDecisionMaker or_deny = DefaultEventFutureDecisionMakers.LOGIC_OR_DENY;
-        IEventFutureDecisionMaker or_default = DefaultEventFutureDecisionMakers.LOGIC_OR_DEFAULT;
+        IEventFutureDecisionLogicUnit or_deny = DefaultEventFutureLogicUnits.LOGIC_OR_DENY;
+        IEventFutureDecisionLogicUnit or_default = DefaultEventFutureLogicUnits.LOGIC_OR_DEFAULT;
 
         EventFutureAssessment[] or_deny_expected = {
                 ALLOW,
@@ -172,7 +173,7 @@ class DefaultEventFutureDecisionMakersTest {
 
     @Test
     void andDecisionMakers() {
-        testDecisionMaker(DefaultEventFutureDecisionMakers.LOGIC_AND_DENY, Arrays.asList(
+        testDecisionMaker(DefaultEventFutureLogicUnits.LOGIC_AND_DENY, Arrays.asList(
                 new Tuple<>(MIXED_ASSESSMENTS, DENY),
                 new Tuple<>(ALL_ALLOW, ALLOW),
                 new Tuple<>(ALL_DEFAULT, ALLOW),

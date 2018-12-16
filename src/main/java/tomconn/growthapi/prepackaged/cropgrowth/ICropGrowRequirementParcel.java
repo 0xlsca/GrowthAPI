@@ -3,9 +3,9 @@ package tomconn.growthapi.prepackaged.cropgrowth;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.BlockEvent;
-import tomconn.growthapi.base.IEventPackage;
+import tomconn.growthapi.base.parcel.IEventParcel;
 
-public interface IGrowthRequirementParcel<E extends BlockEvent.CropGrowEvent> extends IEventPackage<E> {
+public interface ICropGrowRequirementParcel<E extends BlockEvent.CropGrowEvent> extends IEventParcel<E> {
 
     int getLightLevel();
 
