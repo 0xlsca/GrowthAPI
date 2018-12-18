@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.implementations.eventhelpers.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.SaplingGrowTreeEventHelper;
-import tomconn.growthapi.interfaces.IRegistry;
+import tomconn.growthapi.interfaces.registry.IRegistry;
 
 import java.util.Arrays;
 import java.util.function.Consumer;

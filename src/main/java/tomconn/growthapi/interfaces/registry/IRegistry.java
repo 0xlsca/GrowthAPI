@@ -1,4 +1,4 @@
-package tomconn.growthapi.interfaces;
+package tomconn.growthapi.interfaces.registry;
 
 /**
  * This interface provides methods which are supposed to be implemented by every registry.

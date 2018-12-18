@@ -3,7 +3,7 @@ package tomconn.growthapi.implementations;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import tomconn.growthapi.interfaces.IRegistry;
+import tomconn.growthapi.interfaces.registry.IRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +25,19 @@ public class GAPIRegistry implements IRegistry {
         return instance;
     }
 
+    /**
+     * We store the requirements for crops in this map
+     */
     private Map<Class<? extends Block>, Predicate<BlockEvent.CropGrowEvent.Pre>[]> cropPreMap = new HashMap<>();
 
+    /**
+     * We store the consumers for crops in this map
+     */
     private Map<Class<? extends Block>, Consumer<BlockEvent.CropGrowEvent.Post>> cropPostMap = new HashMap<>();
 
+    /**
+     * We store the saplings in this map
+     */
     private Map<Class<? extends Block>, Predicate<SaplingGrowTreeEvent>[]> saplingMap = new HashMap<>();
 
     @Override
