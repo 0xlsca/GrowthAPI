@@ -15,7 +15,7 @@ public class GrowthAPI {
 
     public final static String modId = "growthapi";
     public final static String name = "Growth API";
-    public final static String version = "0.0.2";
+    public final static String version = "0.0.3";
 
 
     private static EventManager eventManager;
