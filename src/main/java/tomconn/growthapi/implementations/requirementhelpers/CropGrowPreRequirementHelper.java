@@ -5,37 +5,14 @@ import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.implementations.eventhelpers.CropGrowPreEventHelper;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 
 /**
  * This class provides utility for the creation of growth requirements of crops.
- * <p>
- * This class is a singleton.
  */
 public class CropGrowPreRequirementHelper {
-
-    /*
-    Singleton stuff
-    */
-    private static CropGrowPreRequirementHelper instance = new CropGrowPreRequirementHelper();
-
-    private CropGrowPreRequirementHelper() {
-    }
-
-    public static CropGrowPreRequirementHelper getInstance() {
-        return instance;
-    }
-
-
-    /*
-    Attributes go here
-     */
-
-
-    /*
-    Methods go here
-     */
 
 
     /**
@@ -43,12 +20,12 @@ public class CropGrowPreRequirementHelper {
      *
      * @return a respective predicate
      */
-    public Predicate<Pre> blockCanSeeSky(boolean ifCanSee) {
+    public static Predicate<Pre> blockCanSeeSky(boolean ifCanSee, boolean ifCannotSee) {
         return event -> {
             if (new CropGrowPreEventHelper(event).canSeeSky()) {
                 return ifCanSee;
             } else {
-                return !ifCanSee;
+                return ifCannotSee;
             }
         };
     }
@@ -62,7 +39,7 @@ public class CropGrowPreRequirementHelper {
      *                           or not (false)
      * @return a respective predicate based on the provided matcher
      */
-    public Predicate<Pre> temperatureMatches(Predicate<Float> temperatureMatcher) {
+    public static Predicate<Pre> temperatureMatches(Predicate<Float> temperatureMatcher) {
         return event -> temperatureMatcher.test(new CropGrowPreEventHelper(event).getBlockTemperature());
     }
 
@@ -73,12 +50,21 @@ public class CropGrowPreRequirementHelper {
      * @param biomes the {@link Biome}s which are desired
      * @return a predicate which returns true ii the block is located in any of the provided {@link Biome}s
      */
-    public Predicate<Pre> blockHasBiome(Biome... biomes) {
+    public static Predicate<Pre> blockHasBiome(Biome... biomes) {
+        return blockHasBiomes(Arrays.asList(biomes));
+    }
+
+    /**
+     * A {@link List}-based wrapper for {@link #blockHasBiome(Biome...)}
+     *
+     * @param whitelistedBiomes a {@link List} of whitelisted biomes
+     */
+    public static Predicate<Pre> blockHasBiomes(List<Biome> whitelistedBiomes) {
         return event -> {
             CropGrowPreEventHelper helper
-                    = new CropGrowPreEventHelper(event);      //this prevents constant new-instantiation
-            return Arrays.stream(biomes)
-                    .anyMatch(b -> helper.getBiome() == b);    //this could cause performance issues
+                    = new CropGrowPreEventHelper(event); //this prevents constant new-instantiation in the lambda
+            return whitelistedBiomes.stream()
+                    .anyMatch(biome -> helper.getBiome() == biome);//this could cause performance issues
             // if the biome-querying isn't fast
         };
     }
@@ -86,11 +72,16 @@ public class CropGrowPreRequirementHelper {
     /**
      * Returns a predicate which checks whether the block's {@link Biome} is not one of the provided ones.
      *
-     * @param biomes the {@link Biome}s which the block shall not have
+     * @param blacklistedBiomes the {@link Biome}s which the block shall not have
      * @return a predicate which returns true if the block is not located within any of the provided {@link Biome}s
      */
-    public Predicate<Pre> blockDoesNotHaveBiome(Biome... biomes) {
-        return event -> !blockHasBiome(biomes).test(event); //we simply negate whether the block is in one of the biomes
+    public static Predicate<Pre> blockDoesNotHaveBiome(Biome... blacklistedBiomes) {
+        //we simply negate whether the block is in one of the blacklisted biomes
+        return event -> !blockHasBiome(blacklistedBiomes).test(event);
+    }
+
+    public static Predicate<Pre> blockDoesNotHaveBiomes(List<Biome> blacklistedBiomes) {
+        return event -> !blockHasBiomes(blacklistedBiomes).test(event);
     }
 
     /**
@@ -100,7 +91,7 @@ public class CropGrowPreRequirementHelper {
      * @param lightLevelMatcher boolean logic which decides whether or not the passed light-level is sufficient
      * @return a respective predicate based on the provided matcher
      */
-    public Predicate<Pre> lightlevelMatches(Predicate<Integer> lightLevelMatcher) {
+    public static Predicate<Pre> lightlevelMatches(Predicate<Integer> lightLevelMatcher) {
         return event -> lightLevelMatcher.test(new CropGrowPreEventHelper(event).getLightLevel());
     }
 
