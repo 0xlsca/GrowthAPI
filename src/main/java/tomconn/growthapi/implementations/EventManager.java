@@ -18,9 +18,13 @@ import java.util.function.Predicate;
  */
 public class EventManager {
 
+    public IRegistry getRegistry() {
+        return registry;
+    }
+
     /*
-    Attributes go here
-     */
+        Attributes go here
+         */
     private IRegistry registry = new GAPIRegistry();
 
 

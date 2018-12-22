@@ -18,6 +18,10 @@ public class GrowthAPI {
     public final static String version = "0.0.3";
 
 
+    public static EventManager getEventManager() {
+        return eventManager;
+    }
+
     private static EventManager eventManager;
 
 
