@@ -21,7 +21,7 @@ public class EventManager {
     /*
     Attributes go here
      */
-    private IRegistry registry = GAPIRegistry.getInstance();
+    private IRegistry registry = new GAPIRegistry();
 
 
     /*

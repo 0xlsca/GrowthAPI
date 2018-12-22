@@ -27,7 +27,7 @@ public class GrowthAPI {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        eventManager = EventManager.getInstance();
+        eventManager = new EventManager();
     }
 
     @Mod.EventHandler

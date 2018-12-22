@@ -3,7 +3,7 @@ package tomconn.growthapi.implementations;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import tomconn.growthapi.interfaces.registry.IRegistry;
+import tomconn.growthapi.interfaces.registry.classbased.IRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +12,8 @@ import java.util.function.Predicate;
 
 /**
  * This class is our default implementation of the {@link IRegistry} interface.
- * It is a singleton.
  */
 public class GAPIRegistry implements IRegistry {
-
-    private static GAPIRegistry instance = new GAPIRegistry();
-
-    private GAPIRegistry() {
-    }
-
-    public static GAPIRegistry getInstance() {
-        return instance;
-    }
 
     /**
      * We store the requirements for crops in this map
