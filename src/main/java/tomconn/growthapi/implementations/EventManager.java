@@ -8,7 +8,7 @@ import tomconn.growthapi.implementations.eventhelpers.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.SaplingGrowTreeEventHelper;
 import tomconn.growthapi.interfaces.registry.classbased.IRegistry;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -37,7 +37,7 @@ public class EventManager {
 
         SaplingGrowTreeEventHelper helper = new SaplingGrowTreeEventHelper(event);
 
-        Predicate<SaplingGrowTreeEvent>[] predicates = registry.getRequirementsForSapling(helper.getBlockClass());
+        List<Predicate<SaplingGrowTreeEvent>> predicates = registry.getRequirementsForSapling(helper.getBlockClass());
 
         event.setResult(
                 processEventAnd(
@@ -76,7 +76,7 @@ public class EventManager {
     public void manage(BlockEvent.CropGrowEvent.Pre event) {
         CropGrowPreEventHelper helper = new CropGrowPreEventHelper(event);
 
-        Predicate<BlockEvent.CropGrowEvent.Pre>[] predicates = registry.getRequirementsForCropPre(helper.getBlockClass());
+        List<Predicate<BlockEvent.CropGrowEvent.Pre>> predicates = registry.getRequirementsForCropPre(helper.getBlockClass());
 
         event.setResult(
                 processEventAnd(
@@ -98,8 +98,8 @@ public class EventManager {
      * @param negative   returned if at least one predicates wasn't met
      * @return either the passed <b>positive</b> or <b>negative</b> value
      */
-    private <E> Event.Result processEventAnd(Predicate<E>[] predicates, E instance, Event.Result positive, Event.Result negative) {
-        boolean passing = Arrays.stream(predicates)
+    private <E> Event.Result processEventAnd(List<Predicate<E>> predicates, E instance, Event.Result positive, Event.Result negative) {
+        boolean passing = predicates.stream()
                 .allMatch(p -> p.test(instance));      // checks whether all predicates are true. If not, it returns false
 
         if (passing) {
