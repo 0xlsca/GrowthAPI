@@ -7,10 +7,7 @@ import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
 import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -56,16 +53,28 @@ public class ClassBasedRegistry implements IClassBasedRegistry {
 
     @Override
     public List<Predicate<Pre>> getRequirementsForCropPre(Class<? extends Block> blockClass) {
-        List<Predicate<Pre>> ret = Arrays.asList(cropPreMap.get(blockClass));
-        ret.addAll(profileRegistry.getRequirementsForCropPre(blockClass));
-        return ret;
+        Predicate<Pre>[] predicates = cropPreMap.get(blockClass);
+
+        if (predicates != null) {
+            List<Predicate<Pre>> ret = Arrays.asList(predicates);
+            ret.addAll(profileRegistry.getRequirementsForCropPre(blockClass));
+        }
+
+
+        return Collections.emptyList();
     }
 
     @Override
     public List<Predicate<SaplingGrowTreeEvent>> getRequirementsForSapling(Class<? extends Block> blockClass) {
-        List<Predicate<SaplingGrowTreeEvent>> ret = Arrays.asList(saplingMap.get(blockClass));
-        ret.addAll(profileRegistry.getRequirementsForSapling(blockClass));
-        return ret;
+        Predicate<SaplingGrowTreeEvent>[] predicates = saplingMap.get(blockClass);
+
+        if (predicates != null) {
+            List<Predicate<SaplingGrowTreeEvent>> ret = Arrays.asList(predicates);
+            ret.addAll(profileRegistry.getRequirementsForSapling(blockClass));
+            return ret;
+        }
+
+        return Collections.emptyList();
     }
 
     @Override

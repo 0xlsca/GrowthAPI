@@ -9,6 +9,7 @@ import tomconn.growthapi.interfaces.registry.IRegistry;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
 import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -39,7 +40,9 @@ public class GrowthRegistry implements IRegistry {
 
     @Override
     public List<Predicate<BlockEvent.CropGrowEvent.Pre>> getRequirementsForCropPre(Class<? extends Block> blockClass) {
-        List<Predicate<BlockEvent.CropGrowEvent.Pre>> ret = classBasedRegistry.getRequirementsForCropPre(blockClass);
+        List<Predicate<BlockEvent.CropGrowEvent.Pre>> ret = new ArrayList<>();
+
+        ret.addAll(classBasedRegistry.getRequirementsForCropPre(blockClass));
         ret.addAll(profileBasedRegistry.getRequirementsForCropPre(blockClass));
 
         return ret;
@@ -47,7 +50,9 @@ public class GrowthRegistry implements IRegistry {
 
     @Override
     public List<Predicate<SaplingGrowTreeEvent>> getRequirementsForSapling(Class<? extends Block> blockClass) {
-        List<Predicate<SaplingGrowTreeEvent>> ret = classBasedRegistry.getRequirementsForSapling(blockClass);
+        List<Predicate<SaplingGrowTreeEvent>> ret = new ArrayList<>();
+
+        ret.addAll(classBasedRegistry.getRequirementsForSapling(blockClass));
         ret.addAll(profileBasedRegistry.getRequirementsForSapling(blockClass));
 
         return ret;

@@ -67,7 +67,9 @@ public class EventManager {
 
         Consumer<BlockEvent.CropGrowEvent.Post> consumer = registry.getConsumerForCropPost(helper.getBlockClass());
 
-        consumer.accept(event);
+        if (consumer != null) {
+            consumer.accept(event);
+        }
     }
 
 

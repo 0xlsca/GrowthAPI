@@ -40,7 +40,14 @@ public class CropGrowPreRequirementHelper {
      * @return a respective predicate based on the provided matcher
      */
     public static Predicate<Pre> temperatureMatches(Predicate<Float> temperatureMatcher) {
-        return event -> temperatureMatcher.test(new CropGrowPreEventHelper(event).getBlockTemperature());
+        return event -> {
+
+            if (temperatureMatcher != null) {
+                return temperatureMatcher.test(new CropGrowPreEventHelper(event).getBlockTemperature());
+            }
+
+            return true;
+        };
     }
 
 
@@ -61,11 +68,16 @@ public class CropGrowPreRequirementHelper {
      */
     public static Predicate<Pre> blockHasBiomes(List<Biome> whitelistedBiomes) {
         return event -> {
-            CropGrowPreEventHelper helper
-                    = new CropGrowPreEventHelper(event); //this prevents constant new-instantiation in the lambda
-            return whitelistedBiomes.stream()
-                    .anyMatch(biome -> helper.getBiome() == biome);//this could cause performance issues
-            // if the biome-querying isn't fast
+
+            if (whitelistedBiomes != null) {
+                CropGrowPreEventHelper helper
+                        = new CropGrowPreEventHelper(event); //this prevents constant new-instantiation in the lambda
+                return whitelistedBiomes.stream()
+                        .anyMatch(biome -> helper.getBiome() == biome);//this could cause performance issues
+                // if the biome-querying isn't fast
+            }
+
+            return true;
         };
     }
 
@@ -77,11 +89,25 @@ public class CropGrowPreRequirementHelper {
      */
     public static Predicate<Pre> blockDoesNotHaveBiome(Biome... blacklistedBiomes) {
         //we simply negate whether the block is in one of the blacklisted biomes
-        return event -> !blockHasBiome(blacklistedBiomes).test(event);
+        return event -> {
+
+            if (blacklistedBiomes != null) {
+                return !blockHasBiome(blacklistedBiomes).test(event);
+            }
+
+            return true;
+        };
     }
 
     public static Predicate<Pre> blockDoesNotHaveBiomes(List<Biome> blacklistedBiomes) {
-        return event -> !blockHasBiomes(blacklistedBiomes).test(event);
+        return event -> {
+
+            if (blacklistedBiomes != null) {
+                return !blockHasBiomes(blacklistedBiomes).test(event);
+            }
+
+            return true;
+        };
     }
 
     /**
@@ -92,7 +118,14 @@ public class CropGrowPreRequirementHelper {
      * @return a respective predicate based on the provided matcher
      */
     public static Predicate<Pre> lightlevelMatches(Predicate<Integer> lightLevelMatcher) {
-        return event -> lightLevelMatcher.test(new CropGrowPreEventHelper(event).getLightLevel());
+        return event -> {
+
+            if (lightLevelMatcher != null) {
+                return lightLevelMatcher.test(new CropGrowPreEventHelper(event).getLightLevel());
+            }
+
+            return true;
+        };
     }
 
 }
