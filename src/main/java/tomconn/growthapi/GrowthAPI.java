@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tomconn.growthapi.implementations.EventManager;
+import tomconn.growthapi.interfaces.registry.IRegistry;
+import tomconn.growthapi.runtimetests.Runtimetest;
 
 @SuppressWarnings("WeakerAccess")
 @Mod(modid = GrowthAPI.modId, name = GrowthAPI.name, version = GrowthAPI.version)
@@ -18,25 +20,27 @@ public class GrowthAPI {
     public final static String version = "0.0.3";
 
 
-    public static EventManager getEventManager() {
-        return eventManager;
-    }
-
     private static EventManager eventManager;
+    private static IRegistry registry;
 
 
     @Mod.Instance(modId)
     public static GrowthAPI instance;
 
+    public static IRegistry getRegistry() {
+        return registry;
+    }
+
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         eventManager = new EventManager();
+        registry = eventManager.getRegistry();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        Runtimetest.test();
     }
 
     @SubscribeEvent

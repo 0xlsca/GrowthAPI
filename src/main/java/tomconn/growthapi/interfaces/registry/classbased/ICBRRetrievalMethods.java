@@ -9,11 +9,11 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * This interface covers all retrieval methods of an {@link IRegistry}.
+ * This interface covers all retrieval methods of an {@link IClassBasedRegistry}.
  * They are mainly called by {@link tomconn.growthapi.implementations.EventManager} whilst it decides whether or not a
  * event shall pass.
  */
-public interface IRegistryRetrievalMethods {
+public interface ICBRRetrievalMethods {
 
     /**
      * Returns the currently registered requirements for the passed class.

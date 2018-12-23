@@ -1,4 +1,4 @@
-package tomconn.growthapi.interfaces.registry;
+package tomconn.growthapi.interfaces.registry.classbased;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
@@ -8,9 +8,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * This interface covers all the registration-specific methods of an {@link IRegistry}
+ * This interface covers all the registration-specific methods of an {@link IClassBasedRegistry}
  */
-public interface IRegistryRegistrationMethods {
+public interface ICBRRegistrationMethods {
 
     /**
      * This method registers a crop block for consideration if a

@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.implementations.eventhelpers.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.SaplingGrowTreeEventHelper;
-import tomconn.growthapi.interfaces.registry.classbased.IRegistry;
+import tomconn.growthapi.interfaces.registry.IRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -25,7 +25,7 @@ public class EventManager {
     /*
         Attributes go here
          */
-    private IRegistry registry = new GAPIRegistry();
+    private IRegistry registry = new GrowthRegistry();
 
 
     /*

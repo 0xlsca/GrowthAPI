@@ -1,13 +1,11 @@
 package tomconn.growthapi.interfaces.registry;
 
+import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
+import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
+
 /**
- * This interface provides methods which are supposed to be implemented by every registry.
- * A registry is an object which holds references to all blocks which can show up in any of the three in this API
- * covered events ({@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre},
- * {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post} and
- * {@link net.minecraftforge.event.terraingen.SaplingGrowTreeEvent}).
+ * Unifies the {@link tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry} and
+ * {@link IProfileBasedRegistry} in one interface
  */
-public interface IRegistry extends IRegistryRegistrationMethods, IRegistryRetrievalMethods {
-
-
+public interface IRegistry extends IClassBasedRegistry, IProfileBasedRegistry {
 }
