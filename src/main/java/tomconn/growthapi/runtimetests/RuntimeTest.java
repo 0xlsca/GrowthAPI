@@ -5,7 +5,7 @@ import tomconn.growthapi.implementations.growthprofile.CropGrowthProfile;
 
 import static net.minecraft.init.Blocks.WHEAT;
 
-public class Runtimetest {
+public class RuntimeTest {
 
     public static void test() {
         CropGrowthProfile wheatProfile = new CropGrowthProfile();
