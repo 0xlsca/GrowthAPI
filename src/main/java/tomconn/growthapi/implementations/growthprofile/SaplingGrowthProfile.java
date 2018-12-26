@@ -2,20 +2,11 @@ package tomconn.growthapi.implementations.growthprofile;
 
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.interfaces.growthprofile.IGrowthProfile;
+import tomconn.growthapi.implementations.requirementhelpers.sapling.SaplingGrowTreeRequirementHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
+public class SaplingGrowthProfile extends ABaseGrowthProfile<SaplingGrowTreeEvent> {
 
-public class SaplingGrowthProfile implements IGrowthProfile<SaplingGrowTreeEvent> {
-
-    //TODO: implement class
-
-    @Override
-    public List<Predicate<SaplingGrowTreeEvent>> liquidate() {
-        ArrayList<Predicate<SaplingGrowTreeEvent>> ret = new ArrayList<>();
-
-        return ret;
+    public SaplingGrowthProfile() {
+        super(new SaplingGrowTreeRequirementHelper());
     }
 }

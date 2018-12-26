@@ -5,6 +5,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tomconn.growthapi.implementations.EventManager;
 import tomconn.growthapi.interfaces.registry.IRegistry;
@@ -43,18 +44,18 @@ public class GrowthAPI {
         RuntimeTest.test();
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onCropGrowthEventPre(BlockEvent.CropGrowEvent.Pre event) {
         eventManager.manage(event);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onCropGrowthEventPost(BlockEvent.CropGrowEvent.Post event) {
         eventManager.manage(event);
     }
 
-    @SubscribeEvent
-    public static void onSaplingGrowthTreeEvent(SaplingGrowTreeEvent event) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onSaplingGrowTreeEvent(SaplingGrowTreeEvent event) {
         eventManager.manage(event);
     }
 }

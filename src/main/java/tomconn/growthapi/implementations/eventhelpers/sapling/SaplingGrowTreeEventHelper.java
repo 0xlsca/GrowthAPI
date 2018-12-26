@@ -1,9 +1,11 @@
-package tomconn.growthapi.implementations.eventhelpers;
+package tomconn.growthapi.implementations.eventhelpers.sapling;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
+import tomconn.growthapi.implementations.eventhelpers.ABaseEventHelper;
 
 /**
  * This class is a utility class and helps with retrieving information from
@@ -12,12 +14,10 @@ import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
  * Please note that each helper may only be assigned to one event, meaning you are required to instantiate a new
  * helper for a new event.
  */
-public class SaplingGrowTreeEventHelper {
-
-    protected final SaplingGrowTreeEvent event;
+public class SaplingGrowTreeEventHelper extends ABaseEventHelper<SaplingGrowTreeEvent> {
 
     public SaplingGrowTreeEventHelper(SaplingGrowTreeEvent event) {
-        this.event = event;
+        super(event);
     }
 
     /**
@@ -29,6 +29,26 @@ public class SaplingGrowTreeEventHelper {
         World world = event.getWorld();
         IBlockState blockState = world.getBlockState(event.getPos());
         return blockState.getBlock().getClass();
+    }
+
+    @Override
+    public boolean canSeeSky() {
+        return event.getWorld().canBlockSeeSky(event.getPos());
+    }
+
+    @Override
+    public Biome getBiome() {
+        return event.getWorld().getBiome(event.getPos());
+    }
+
+    @Override
+    public float getBlockTemperature() {
+        return getBiome().getTemperature(event.getPos());
+    }
+
+    @Override
+    public int getLightLevel() {
+        return event.getWorld().getLight(event.getPos());
     }
 
 
