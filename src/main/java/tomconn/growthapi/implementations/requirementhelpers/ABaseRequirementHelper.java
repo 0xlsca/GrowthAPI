@@ -16,19 +16,12 @@ import java.util.function.Predicate;
  */
 public abstract class ABaseRequirementHelper<E extends Event> {
 
-    /**
-     * Returns a predicate which checks whether the block can see the sky
-     *
-     * @return a respective predicate
-     */
-    public Predicate<E> blockCanSeeSky(boolean ifCanSee, boolean ifCannotSee) {
-        return event -> {
-            if (supplyBlockCanSeeSkyFromEvent(event)) {
-                return ifCanSee;
-            } else {
-                return ifCannotSee;
-            }
-        };
+    public Predicate<E> blockMustSeeSky(){
+        return this::supplyBlockCanSeeSkyFromEvent;
+    }
+
+    public Predicate<E> blockMustntSeeSky() {
+        return event -> !supplyBlockCanSeeSkyFromEvent(event);
     }
 
     /**

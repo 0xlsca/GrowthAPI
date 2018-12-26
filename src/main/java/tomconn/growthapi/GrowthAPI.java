@@ -1,6 +1,5 @@
 package tomconn.growthapi;
 
-import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -54,8 +53,7 @@ public class GrowthAPI {
         eventManager.manage(event);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onSaplingGrowTreeEvent(SaplingGrowTreeEvent event) {
-        eventManager.manage(event);
+    public static EventManager getEventManager() {
+        return eventManager;
     }
 }

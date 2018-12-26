@@ -26,9 +26,10 @@ public abstract class ABaseGrowthProfile<E extends Event> implements IGrowthProf
     protected List<Biome> whitelistedBiomes = null;
     protected List<Biome> blacklistedBiomes = null;
 
-    protected boolean dontCareAboutSky = true;      //this flag signals that the view to sky is not cared about
-    protected boolean mustSeeSky = true;
-    protected boolean mustntSeeSky = false;
+    /**
+     * SkyAffinity depicts whether a block likes (true) being under the sun or not (false)
+     */
+    protected Boolean skyAffinity = null;
 
 
     public ABaseGrowthProfile(ABaseRequirementHelper<E> helper) {
@@ -59,16 +60,11 @@ public abstract class ABaseGrowthProfile<E extends Event> implements IGrowthProf
                 helper.blockDoesNotHaveBiomes(blacklistedBiomes)
         );
 
-        ret.add(
-                dontCareAboutSky ?
-
-                        helper.blockCanSeeSky(true, true)
-                        :
-                        helper.blockCanSeeSky(
-                                mustSeeSky && !mustntSeeSky,            //if both values are set, neither
-                                !(mustSeeSky && !mustntSeeSky)       //can be met
-                        )
-        );
+        if (skyAffinity != null) {
+            ret.add(
+                skyAffinity ? helper.blockMustSeeSky() : helper.blockMustntSeeSky()
+            );
+        }
 
         return ret;
     }
@@ -107,8 +103,8 @@ public abstract class ABaseGrowthProfile<E extends Event> implements IGrowthProf
         return this;
     }
 
-    public ABaseGrowthProfile<E> needsSky(boolean needsToSeeSky) {
-        this.mustSeeSky = needsToSeeSky;
+    public ABaseGrowthProfile<E> skyAffinity(Boolean skyAffinity) {
+        setSkyAffinity(skyAffinity);
         return this;
     }
 
@@ -152,19 +148,8 @@ public abstract class ABaseGrowthProfile<E extends Event> implements IGrowthProf
         return blacklistedBiomes;
     }
 
-    public boolean isMustSeeSky() {
-        return mustSeeSky;
-    }
-
-    public boolean isMustntSeeSky() {
-        return mustntSeeSky;
-    }
-
-    /**
-     * Returns whether or not this profile cares about whether the block has a clear line mof sight to the sky
-     */
-    public boolean isDontCareAboutSky() {
-        return dontCareAboutSky;
+    public boolean getSkyAffinity() {
+        return skyAffinity;
     }
 
     /*
@@ -196,15 +181,13 @@ public abstract class ABaseGrowthProfile<E extends Event> implements IGrowthProf
         this.blacklistedBiomes = blacklistedBiomes;
     }
 
-    public void setMustSeeSky(boolean mustSeeSky) {
-        this.dontCareAboutSky = false;
-        this.mustSeeSky = mustSeeSky;
+    /**
+     * Sky affinity depicts whether this block likes (true) or dislikes (false) being under the sun
+     * @param skyAffinity true in case this block must, false in case this block mustn't be under the sky.<br>null to
+     *                    flag a "don't care" behavior
+     */
+    public void setSkyAffinity(Boolean skyAffinity) {
+        this.skyAffinity = skyAffinity;
     }
-
-    public void setMustntSeeSky(boolean mustntSeeSky) {
-        this.dontCareAboutSky = false;
-        this.mustntSeeSky = mustntSeeSky;
-    }
-
 
 }

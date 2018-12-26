@@ -1,8 +1,10 @@
 package tomconn.growthapi.implementations.event;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.implementations.event.handlers.SaplingGrowTree;
 import tomconn.growthapi.implementations.eventhelpers.crop.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.crop.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.sapling.SaplingGrowTreeEventHelper;
@@ -18,6 +20,10 @@ import java.util.function.Predicate;
  * <br>
  */
 public class EventManager {
+
+    static {
+        MinecraftForge.TERRAIN_GEN_BUS.register(SaplingGrowTree.class);
+    }
 
     public IRegistry getRegistry() {
         return registry;

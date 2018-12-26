@@ -18,7 +18,7 @@ public class RuntimeTest {
 
         SaplingGrowthProfile oakProfile = new SaplingGrowthProfile();
 
-        oakProfile.setMustntSeeSky(true);
+        oakProfile.skyAffinity(false);
 
         GrowthAPI.getRegistry().registerSaplingProfile(BlockSapling.class, oakProfile);
     }
