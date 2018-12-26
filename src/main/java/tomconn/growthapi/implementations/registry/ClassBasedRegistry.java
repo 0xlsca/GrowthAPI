@@ -1,4 +1,4 @@
-package tomconn.growthapi.implementations;
+package tomconn.growthapi.implementations.registry;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;

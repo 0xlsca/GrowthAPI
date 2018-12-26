@@ -3,6 +3,7 @@ package tomconn.growthapi.interfaces.registry.classbased;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import tomconn.growthapi.implementations.event.EventManager;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -10,7 +11,7 @@ import java.util.function.Predicate;
 
 /**
  * This interface covers all retrieval methods of an {@link IClassBasedRegistry}.
- * They are mainly called by {@link tomconn.growthapi.implementations.EventManager} whilst it decides whether or not a
+ * They are mainly called by {@link EventManager} whilst it decides whether or not a
  * event shall pass.
  */
 public interface ICBRRetrievalMethods {

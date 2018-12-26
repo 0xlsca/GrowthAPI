@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import tomconn.growthapi.implementations.EventManager;
+import tomconn.growthapi.implementations.event.EventManager;
 import tomconn.growthapi.interfaces.registry.IRegistry;
 import tomconn.growthapi.runtimetests.RuntimeTest;
 

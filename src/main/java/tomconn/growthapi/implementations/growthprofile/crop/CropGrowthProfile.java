@@ -1,6 +1,7 @@
-package tomconn.growthapi.implementations.growthprofile;
+package tomconn.growthapi.implementations.growthprofile.crop;
 
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
+import tomconn.growthapi.implementations.growthprofile.ABaseGrowthProfile;
 import tomconn.growthapi.implementations.requirementhelpers.crop.CropGrowPreRequirementHelper;
 
 /**

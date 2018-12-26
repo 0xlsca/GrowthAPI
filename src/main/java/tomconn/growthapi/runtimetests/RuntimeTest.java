@@ -2,8 +2,8 @@ package tomconn.growthapi.runtimetests;
 
 import net.minecraft.block.BlockSapling;
 import tomconn.growthapi.GrowthAPI;
-import tomconn.growthapi.implementations.growthprofile.CropGrowthProfile;
-import tomconn.growthapi.implementations.growthprofile.SaplingGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.crop.CropGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.sapling.SaplingGrowthProfile;
 
 import static net.minecraft.init.Blocks.WHEAT;
 

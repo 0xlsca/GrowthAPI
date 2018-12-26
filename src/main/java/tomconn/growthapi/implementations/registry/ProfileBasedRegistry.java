@@ -1,11 +1,11 @@
-package tomconn.growthapi.implementations;
+package tomconn.growthapi.implementations.registry;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.implementations.growthprofile.CropGrowthProfile;
-import tomconn.growthapi.implementations.growthprofile.SaplingGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.crop.CropGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.sapling.SaplingGrowthProfile;
 import tomconn.growthapi.interfaces.growthprofile.IGrowthProfile;
 import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
 

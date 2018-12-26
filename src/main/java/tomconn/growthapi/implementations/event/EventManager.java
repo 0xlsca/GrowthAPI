@@ -1,4 +1,4 @@
-package tomconn.growthapi.implementations;
+package tomconn.growthapi.implementations.event;
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.implementations.eventhelpers.crop.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.crop.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.eventhelpers.sapling.SaplingGrowTreeEventHelper;
+import tomconn.growthapi.implementations.registry.GrowthRegistry;
 import tomconn.growthapi.interfaces.registry.IRegistry;
 
 import java.util.List;
