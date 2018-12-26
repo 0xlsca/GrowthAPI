@@ -14,7 +14,7 @@ apply plugin: "java"
 apply from: "dependencies.gradle"
 
 
-version = "0.0.4"
+version = "0.0.5"
 group = "de.tomconn.growthapi" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "growthapi"
 
