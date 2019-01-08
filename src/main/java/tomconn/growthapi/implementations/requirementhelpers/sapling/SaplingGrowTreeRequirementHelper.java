@@ -2,12 +2,12 @@ package tomconn.growthapi.implementations.requirementhelpers.sapling;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.implementations.requirementhelpers.ABaseRequirementHelper;
+import tomconn.growthapi.implementations.requirementhelpers.PrimitiveRequirementHelper;
 
 /**
  * Helps with tailoring requirements for the {@link net.minecraftforge.event.terraingen.SaplingGrowTreeEvent}
  */
-public class SaplingGrowTreeRequirementHelper extends ABaseRequirementHelper<SaplingGrowTreeEvent> {
+public class SaplingGrowTreeRequirementHelper extends PrimitiveRequirementHelper< SaplingGrowTreeEvent > {
 
 
     @Override

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import tomconn.growthapi.interfaces.growthprofile.IGrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
 import tomconn.growthapi.interfaces.registry.IRegistry;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
 import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
@@ -64,22 +64,22 @@ public class GrowthRegistry implements IRegistry {
     }
 
     @Override
-    public boolean registerCropGrowPreProfile(Class<? extends Block> blockClass, IGrowthProfile<BlockEvent.CropGrowEvent.Pre> growthProfile) {
+    public boolean registerCropGrowPreProfile(Class< ? extends Block > blockClass, GrowthProfile< BlockEvent.CropGrowEvent.Pre > growthProfile) {
         return profileBasedRegistry.registerCropGrowPreProfile(blockClass, growthProfile);
     }
 
     @Override
-    public boolean[] registerCropGrowPreProfiles(Tuple<Class<? extends Block>, IGrowthProfile<BlockEvent.CropGrowEvent.Pre>>... tuples) {
+    public boolean[] registerCropGrowPreProfiles(Tuple< Class< ? extends Block >, GrowthProfile< BlockEvent.CropGrowEvent.Pre > >... tuples) {
         return profileBasedRegistry.registerCropGrowPreProfiles(tuples);
     }
 
     @Override
-    public boolean registerSaplingProfile(Class<? extends Block> blockClass, IGrowthProfile<SaplingGrowTreeEvent> profile) {
+    public boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent > profile) {
         return profileBasedRegistry.registerSaplingProfile(blockClass, profile);
     }
 
     @Override
-    public boolean[] registerSaplingProfiles(Tuple<Class<? extends Block>, IGrowthProfile<SaplingGrowTreeEvent>>... profiles) {
+    public boolean[] registerSaplingProfiles(Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent > >... profiles) {
         return profileBasedRegistry.registerSaplingProfiles(profiles);
     }
 }

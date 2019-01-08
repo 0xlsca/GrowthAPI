@@ -2,13 +2,13 @@ package tomconn.growthapi.implementations.requirementhelpers.crop;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.implementations.requirementhelpers.ABaseRequirementHelper;
+import tomconn.growthapi.implementations.requirementhelpers.PrimitiveRequirementHelper;
 
 
 /**
  * This class provides utility for the creation of growth requirements of crops.
  */
-public class CropGrowPreRequirementHelper extends ABaseRequirementHelper<Pre> {
+public class CropGrowPreRequirementHelper extends PrimitiveRequirementHelper< Pre > {
 
 
     @Override

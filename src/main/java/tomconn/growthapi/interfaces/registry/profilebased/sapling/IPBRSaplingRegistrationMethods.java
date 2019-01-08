@@ -3,7 +3,7 @@ package tomconn.growthapi.interfaces.registry.profilebased.sapling;
 import net.minecraft.block.Block;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.interfaces.growthprofile.IGrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
 import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
 
 /**
@@ -18,18 +18,18 @@ public interface IPBRSaplingRegistrationMethods {
      * @param profile its respective growth profile
      * @return true if and only if this sapling was registered and no secondary side-effects were encountered
      */
-    boolean registerSaplingProfile(Class<? extends Block> blockClass, IGrowthProfile<SaplingGrowTreeEvent> profile);
+    boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent > profile);
 
     /**
-     * A {@link Tuple}-array based wrapper for {@link #registerSaplingProfile(Class, IGrowthProfile)} (Class, IGrowthProfile)}
-     * @see #registerSaplingProfile(Class, IGrowthProfile)
+     * A {@link Tuple}-array based wrapper for {@link #registerSaplingProfile(Class, GrowthProfile)} (Class, BaseGrowthProfile)}
+     * @see #registerSaplingProfile(Class, GrowthProfile)
      *
      * @return an array of booleans which are index-associated with the respective inputs in the parameter
      */
     boolean[] registerSaplingProfiles(
             Tuple<
                     Class<? extends Block>,
-                    IGrowthProfile<SaplingGrowTreeEvent>
+                    GrowthProfile< SaplingGrowTreeEvent >
                     >... profiles
     );
 }
