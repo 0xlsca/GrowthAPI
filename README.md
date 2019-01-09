@@ -10,7 +10,7 @@ Growth API is an API written in Java-8 which is meant to ease the modification o
  
  ## Changelog:
  
- ### 0.0.6: chance-functional update
+ ### 0.0.6: probability-function update
  
  - added chance-based profiles with an extensive backend
  
