@@ -4,7 +4,7 @@ import net.minecraft.util.Tuple;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.NumberInterval;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,7 +25,7 @@ public interface TemperatureIntervalProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, NumberInterval< Float > > > intervals);
+    ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals);
 
 
     /**
@@ -38,7 +38,7 @@ public interface TemperatureIntervalProbabilityMethods< E extends Event > {
      * @see #temperatureIntervalChance(Collection)
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > temperatureIntervalChance(ProbabilityFunctionTuple< Float, NumberInterval< Float > >... intervals) {
+    default ProbabilityFunction< E > temperatureIntervalChance(ProbabilityFunctionTuple< Float, Interval< Float > >... intervals) {
 
         return temperatureIntervalChance(Arrays.asList(intervals));
     }

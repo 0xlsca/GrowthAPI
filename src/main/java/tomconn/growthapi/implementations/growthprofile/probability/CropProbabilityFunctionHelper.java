@@ -9,8 +9,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.base.PrimitiveProa
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.NumberInterval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.PrimitiveBlockPosInterval;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -39,7 +38,7 @@ public class CropProbabilityFunctionHelper implements PrimitiveProabilityFunctio
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, PrimitiveBlockPosInterval > > intervals) {
+    public ProbabilityFunction< Pre > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -53,7 +52,7 @@ public class CropProbabilityFunctionHelper implements PrimitiveProabilityFunctio
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, NumberInterval< Integer > > > intervals) {
+    public ProbabilityFunction< Pre > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -67,7 +66,7 @@ public class CropProbabilityFunctionHelper implements PrimitiveProabilityFunctio
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, NumberInterval< Float > > > intervals) {
+    public ProbabilityFunction< Pre > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals) {
 
         Objects.requireNonNull(intervals);
 

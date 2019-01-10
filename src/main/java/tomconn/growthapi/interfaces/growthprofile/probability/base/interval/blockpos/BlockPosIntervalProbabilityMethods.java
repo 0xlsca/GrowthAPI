@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.PrimitiveBlockPosInterval;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +28,7 @@ public interface BlockPosIntervalProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, PrimitiveBlockPosInterval > > intervals);
+    ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals);
 
 
     /**
@@ -41,7 +41,7 @@ public interface BlockPosIntervalProbabilityMethods< E extends Event > {
      * @see #blockPosIntervalChance(Collection)
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > blockPosIntervalChance(ProbabilityFunctionTuple< BlockPos, PrimitiveBlockPosInterval >... intervals) {
+    default ProbabilityFunction< E > blockPosIntervalChance(ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > >... intervals) {
 
         return blockPosIntervalChance(Arrays.asList(intervals));
     }

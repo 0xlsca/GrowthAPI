@@ -1,4 +1,4 @@
-package tomconn.growthapi.implementations.growthprofile.probability.math;
+package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
 

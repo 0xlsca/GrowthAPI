@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 
-import static tomconn.growthapi.implementations.growthprofile.probability.math.DomainContainers.singleContainerOf;
 import static tomconn.growthapi.implementations.growthprofile.probability.math.ProbabilityFunctions.tupleOf;
+import static tomconn.growthapi.implementations.growthprofile.probability.math.function.container.DomainContainers.singleContainerOf;
 
 /**
  * This class helps with tailoring {@link ProbabilityFunctionTuple}-based {@link ProbabilityFunction}s

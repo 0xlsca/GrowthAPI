@@ -2,6 +2,8 @@ package tomconn.growthapi.interfaces.growthprofile.probability.math.function.con
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
+import java.util.Comparator;
+
 /**
  * This interface denotes methods which are required to represent an interval, mathematically speaking
  *
@@ -9,14 +11,99 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.cont
  */
 public interface Interval< T > extends DomainContainer< T > {
 
+
     /**
-     * Depicts the kind of a bound.
+     * This interface represents a mathematical bound
      *
      * @since 0.0.6
      */
-    enum BoundKind {
-        INCLUSIVE,
-        EXCLUSIVE
+    interface Bound< T > {
+
+
+        /**
+         * Returns the value of this bound
+         *
+         * @return the value of this bound
+         *
+         * @since 0.0.6
+         */
+        T getBoundValue();
+
+
+        /**
+         * Returns the {@link BoundKind} of this bound
+         *
+         * @return a {@link BoundKind}
+         *
+         * @since 0.0.6
+         */
+        BoundKind getBoundKind();
+
+
+        /**
+         * Depicts the kind of a bound.
+         *
+         * @since 0.0.6
+         */
+        enum BoundKind {
+            INCLUSIVE,
+            EXCLUSIVE
+        }
+
+    }
+
+
+    /**
+     * A default method to check whether a provided value matches the upper bound, based on a passed {@link Comparator}
+     *
+     * @param value      the value
+     * @param comparator the comparator, which is specialized for the underlying type of this interval
+     *
+     * @return <ul>
+     * <li>true  - if and only if the value matches the upper bound</li>
+     * <li>false - in all other cases</li>
+     * </ul>
+     *
+     * @since 0.0.6
+     */
+    default Boolean matchesUpper(T value, Comparator< T > comparator) {
+
+        T upperValue = getUpperBound().getBoundValue();
+
+        int result = comparator.compare(upperValue, value);
+
+        if (getUpperBound().getBoundKind() == Bound.BoundKind.INCLUSIVE) {
+            return result >= 0;
+        }
+
+        return result > 0;
+    }
+
+
+    /**
+     * A default method to check whether a provided value matches the lower bound, based on a passed {@link Comparator}
+     *
+     * @param value      the value
+     * @param comparator the comparator, which is specialized for the underlying type of this interval
+     *
+     * @return <ul>
+     * <li>true  - if and only if the value matches the lower bound</li>
+     * <li>false - in all other cases</li>
+     * </ul>
+     *
+     * @since 0.0.6
+     */
+    default Boolean matchesLower(T value, Comparator< T > comparator) {
+
+        T lowerValue = getLowerBound().getBoundValue();
+
+        int result = comparator.compare(lowerValue, value);
+
+        if (getLowerBound().getBoundKind() == Bound.BoundKind.INCLUSIVE) {
+            return result <= 0;
+        }
+
+        return result < 0;
     }
 
 
@@ -27,17 +114,7 @@ public interface Interval< T > extends DomainContainer< T > {
      *
      * @since 0.0.6
      */
-    T getUpperBound();
-
-
-    /**
-     * Returns the {@link BoundKind} of the upper bound
-     *
-     * @return the {@link BoundKind} of the upper bound
-     *
-     * @since 0.0.6
-     */
-    BoundKind getUpperBoundKind();
+    Bound< T > getUpperBound();
 
 
     /**
@@ -47,16 +124,6 @@ public interface Interval< T > extends DomainContainer< T > {
      *
      * @since 0.0.6
      */
-    T getLowerBound();
-
-
-    /**
-     * Returns the {@link BoundKind} of the lower bound
-     *
-     * @return the {@link BoundKind} of the lower bound
-     *
-     * @since 0.0.6
-     */
-    BoundKind getLowerBoundKind();
+    Bound< T > getLowerBound();
 
 }

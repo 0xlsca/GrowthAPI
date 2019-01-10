@@ -7,8 +7,6 @@ import tomconn.growthapi.interfaces.growthprofile.probability.base.interval.Prim
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.NumberInterval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.PrimitiveBlockPosInterval;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -27,7 +25,7 @@ public abstract class IntervalProbabilityFunctionHelper< E extends Event > exten
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, PrimitiveBlockPosInterval > > intervals) {
+    public ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -43,7 +41,7 @@ public abstract class IntervalProbabilityFunctionHelper< E extends Event > exten
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, NumberInterval< Integer > > > intervals) {
+    public ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -57,7 +55,7 @@ public abstract class IntervalProbabilityFunctionHelper< E extends Event > exten
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, NumberInterval< Float > > > intervals) {
+    public ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals) {
 
         Objects.requireNonNull(intervals);
 
