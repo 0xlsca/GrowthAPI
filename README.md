@@ -8,6 +8,10 @@ Growth API is an API written in Java-8 which is meant to ease the modification o
  
  For a quick start, include the api as a runtime-dependency and read the wiki!
  
+ ## Todo until next release:
+ 
+ - add default-value methods to the library to help with tailoring ProbabilityFunctions that only have one value and otherwise a default one
+ 
  ## Changelog:
  
  ### 0.0.6: probability-function update
