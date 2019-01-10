@@ -10,7 +10,7 @@ Growth API is an API written in Java-8 which is meant to ease the modification o
  
  ## Todo until next release:
  
- - rewrite the base GrowthProfile classes and give them an interface-backend
+ - rewrite the base GrowthProfile classes and give them an interface backend
  - add default-value methods to the library to help with tailoring ProbabilityFunctions that only have one value and otherwise a default one
  
  ## Changelog:
