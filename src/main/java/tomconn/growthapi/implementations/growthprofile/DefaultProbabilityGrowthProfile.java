@@ -1,6 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
 
 import javax.annotation.Nonnull;
@@ -15,7 +16,7 @@ import java.util.function.Predicate;
  *
  * @since 0.0.6
  */
-abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthProfile< E, P > > implements GrowthProfile< E, P > {
+abstract class DefaultProbabilityGrowthProfile< E extends Event > implements GrowthProfile< E > {
 
 
     /**
@@ -23,7 +24,7 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      *
      * @since 0.0.6
      */
-    public BaseProbabilityGrowthProfile() {
+    DefaultProbabilityGrowthProfile() {
 
         chanceFunction = e -> 1.0;
     }
@@ -38,7 +39,7 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * @see #doubleWithinBounds(double)
      * @since 0.0.6
      */
-    public BaseProbabilityGrowthProfile(double chance) {
+    public DefaultProbabilityGrowthProfile(double chance) {
 
         doubleWithinBounds(chance);
         chanceFunction = e -> chance;
@@ -46,12 +47,13 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
 
 
     /**
-     * An integer-based wrapper for {@link #BaseProbabilityGrowthProfile(double)}.
+     * An integer-based wrapper for {@link #DefaultProbabilityGrowthProfile(double)}.
      *
      * @param chance an integer within the inclusive bounds of 0 and 100
+     *
      * @since 0.0.6
      */
-    public BaseProbabilityGrowthProfile(int chance) {
+    public DefaultProbabilityGrowthProfile(int chance) {
 
         this(chance / 100.0);
     }
@@ -61,9 +63,10 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * Function-based constructor which sets the internal chance-function to the provided one
      *
      * @param chanceFunction the chance function you wish to set for this profile
+     *
      * @since 0.0.6
      */
-    public BaseProbabilityGrowthProfile(Function< E, Double > chanceFunction) {
+    public DefaultProbabilityGrowthProfile(Function< E, Double > chanceFunction) {
 
         this.chanceFunction = chanceFunction;
     }
@@ -76,6 +79,7 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * Returns the chance with which the profile will allow growth.
      *
      * @return a double within the inclusive-bounds of 0 and 1
+     *
      * @since 0.0.6
      */
     public Function< E, Double > getChanceFunction() {
@@ -85,8 +89,7 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
 
 
     /**
-     * Sets the chance for this profile.
-     * Will throw an exception if the value is above 1 or below 0.
+     * Sets the chance for this profile. Will throw an exception if the value is above 1 or below 0.
      *
      * @param chance the chance
      *
@@ -124,7 +127,6 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * @param num the number
      *
      * @throws IllegalArgumentException If the passed value was not within the expected bounds
-     *
      * @since 0.0.6
      */
     private void doubleWithinBounds(double num) {
@@ -141,6 +143,7 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * @param event the event
      *
      * @return the {@link Random}-instance which is associated with the event
+     *
      * @since 0.0.6
      */
     @Nonnull
@@ -151,9 +154,10 @@ abstract class BaseProbabilityGrowthProfile< E extends Event, P extends GrowthPr
      * This method rolls the dice and checks whether a probability-based function let the event pass or not
      *
      * @param event the event
+     *
      * @return <ul>
-     *     <li>true  - if and only if the probability was high enough to pass</li>
-     *     <li>false - in all other cases</li>
+     * <li>true  - if and only if the probability was high enough to pass</li>
+     * <li>false - in all other cases</li>
      * </ul>
      */
     private boolean test(E event) {

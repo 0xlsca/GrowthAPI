@@ -1,6 +1,6 @@
 package tomconn.growthapi.interfaces.growthprofile.base;
 
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 /**
  * Adds methods for setting and retrieving the minimum needed and maximum allowed temperature
@@ -9,7 +9,7 @@ import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
  *
  * @since 0.0.6
  */
-public interface TemperatureMethods< P extends GrowthProfile< ?, P > > extends ChainingMethods< P > {
+public interface TemperatureMethods< P extends BaseGrowthProfile< ?, P > > extends ChainingMethods< P > {
 
     /**
      * Returns the currently set minimum-required temperature

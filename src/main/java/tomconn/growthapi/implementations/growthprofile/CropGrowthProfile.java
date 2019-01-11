@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  *
  * @since 0.0.5
  */
-class CropGrowthProfile extends AbstractGrowthProfile< Pre, CropGrowthProfile > {
+class CropGrowthProfile extends AbstractBaseGrowthProfile< Pre, CropGrowthProfile > {
 
     /**
      * Default constructor

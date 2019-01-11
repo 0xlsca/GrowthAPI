@@ -5,7 +5,7 @@ import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 import tomconn.growthapi.interfaces.registry.Registry;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
 import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
@@ -73,22 +73,22 @@ public class GrowthRegistry implements Registry {
     }
 
     @Override
-    public boolean registerCropGrowPreProfile(Class< ? extends Block > blockClass, GrowthProfile< Pre, ? > growthProfile) {
+    public boolean registerCropGrowPreProfile(Class< ? extends Block > blockClass, BaseGrowthProfile< Pre, ? > growthProfile) {
         return profileBasedRegistry.registerCropGrowPreProfile(blockClass, growthProfile);
     }
 
     @Override
-    public Collection< Tuple< Class< ? extends Block >, GrowthProfile< Pre, ? > > > registerCropGrowPreProfiles(Tuple< Class< ? extends Block >, GrowthProfile< Pre, ? > >... tuples) {
+    public Collection< Tuple< Class< ? extends Block >, BaseGrowthProfile< Pre, ? > > > registerCropGrowPreProfiles(Tuple< Class< ? extends Block >, BaseGrowthProfile< Pre, ? > >... tuples) {
         return profileBasedRegistry.registerCropGrowPreProfiles(tuples);
     }
 
     @Override
-    public boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent, ? > profile) {
+    public boolean registerSaplingProfile(Class< ? extends Block > blockClass, BaseGrowthProfile< SaplingGrowTreeEvent, ? > profile) {
         return profileBasedRegistry.registerSaplingProfile(blockClass, profile);
     }
 
     @Override
-    public Collection< Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > > > registerSaplingProfiles(Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > >... profiles) {
+    public Collection< Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > > > registerSaplingProfiles(Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > >... profiles) {
         return profileBasedRegistry.registerSaplingProfiles(profiles);
     }
 }

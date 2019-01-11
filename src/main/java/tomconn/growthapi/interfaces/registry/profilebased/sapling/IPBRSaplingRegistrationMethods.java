@@ -3,7 +3,7 @@ package tomconn.growthapi.interfaces.registry.profilebased.sapling;
 import net.minecraft.block.Block;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
 import javax.annotation.Nonnull;
@@ -29,11 +29,11 @@ public interface IPBRSaplingRegistrationMethods {
      *
      * @since 0.0.5
      */
-    boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent, ? > profile);
+    boolean registerSaplingProfile(Class< ? extends Block > blockClass, BaseGrowthProfile< SaplingGrowTreeEvent, ? > profile);
 
 
     /**
-     * A {@link Collection} based wrapper for {@link #registerSaplingProfile(Class, GrowthProfile)} which returns a
+     * A {@link Collection} based wrapper for {@link #registerSaplingProfile(Class, BaseGrowthProfile)} which returns a
      * collection of tuples which could not be registered
      *
      * @param tuples a {@link Collection} of {@link Tuple Tuples}
@@ -42,8 +42,8 @@ public interface IPBRSaplingRegistrationMethods {
      *
      * @since 0.0.5
      */
-    default Collection< Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > > >
-    registerSaplingProfiles(@Nonnull Collection< Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > > > tuples) {
+    default Collection< Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > > >
+    registerSaplingProfiles(@Nonnull Collection< Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > > > tuples) {
 
         Objects.requireNonNull(tuples);
 
@@ -59,8 +59,8 @@ public interface IPBRSaplingRegistrationMethods {
      * @see #registerSaplingProfiles(Collection)
      * @since 0.0.5
      */
-    default Collection< Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > > >
-    registerSaplingProfiles(Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > >... profiles) {
+    default Collection< Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > > >
+    registerSaplingProfiles(Tuple< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > >... profiles) {
 
         Objects.requireNonNull(profiles);
         return registerSaplingProfiles(Arrays.asList(profiles));

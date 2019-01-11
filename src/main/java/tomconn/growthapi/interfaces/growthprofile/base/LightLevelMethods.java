@@ -1,15 +1,15 @@
 package tomconn.growthapi.interfaces.growthprofile.base;
 
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 /**
  * This interface unifies methods for getting, setting and chaining the minimum or maximum light-level
  *
- * @param <P> the {@link GrowthProfile} which implements this interface
+ * @param <P> the {@link BaseGrowthProfile} which implements this interface
  *
  * @since 0.0.6
  */
-public interface LightLevelMethods< P extends GrowthProfile< ?, P > > extends ChainingMethods< P > {
+public interface LightLevelMethods< P extends BaseGrowthProfile< ?, P > > extends ChainingMethods< P > {
 
     /**
      * Returns the currently set minimum light-level

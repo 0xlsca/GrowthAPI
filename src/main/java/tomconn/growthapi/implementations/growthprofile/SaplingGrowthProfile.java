@@ -7,11 +7,11 @@ import tomconn.growthapi.implementations.requirementhelpers.sapling.SaplingGrowT
 import javax.annotation.Nonnull;
 
 /**
- * A {@link SaplingGrowTreeEvent} based implementation of {@link AbstractGrowthProfile}
+ * A {@link SaplingGrowTreeEvent} based implementation of {@link AbstractBaseGrowthProfile}
  *
  * @since 0.0.5
  */
-class SaplingGrowthProfile extends AbstractGrowthProfile< SaplingGrowTreeEvent, SaplingGrowthProfile > {
+class SaplingGrowthProfile extends AbstractBaseGrowthProfile< SaplingGrowTreeEvent, SaplingGrowthProfile > {
 
     /**
      * Default constructor

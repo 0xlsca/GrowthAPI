@@ -1,24 +1,17 @@
 package tomconn.growthapi.interfaces.growthprofile;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
-import tomconn.growthapi.interfaces.growthprofile.base.BiomeMethods;
-import tomconn.growthapi.interfaces.growthprofile.base.LightLevelMethods;
-import tomconn.growthapi.interfaces.growthprofile.base.SkyAffinityMethods;
-import tomconn.growthapi.interfaces.growthprofile.base.TemperatureMethods;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * This interface is meant to provide cross-event functionality in regards of the growth process of anything
+ * A growth-profile is based on an event and yields predicates which take a respective event-instance and tell whether
+ * or not the event shall pass
  *
- * @since 0.0.5
+ * @param <E> any inheritor of {@link Event}
  */
-public interface GrowthProfile< E extends Event, P extends GrowthProfile< E, P > > extends
-        LightLevelMethods< P >,
-        TemperatureMethods< P >,
-        BiomeMethods< P >,
-        SkyAffinityMethods< P > {
+public interface GrowthProfile< E extends Event > {
 
     /**
      * This method is expected to liquidate the growth-profile into a list of predicates which need to be met for the

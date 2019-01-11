@@ -2,7 +2,7 @@ package tomconn.growthapi.interfaces.growthprofile.base;
 
 
 import org.jetbrains.annotations.Nullable;
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
  *
  * @param <P> The implementing method
  */
-public interface SkyAffinityMethods< P extends GrowthProfile< ?, P > > extends ChainingMethods< P > {
+public interface SkyAffinityMethods< P extends BaseGrowthProfile< ?, P > > extends ChainingMethods< P > {
 
     /**
      * Sets the sky affinity

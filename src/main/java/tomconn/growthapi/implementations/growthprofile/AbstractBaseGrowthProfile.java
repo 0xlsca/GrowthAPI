@@ -4,7 +4,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import org.jetbrains.annotations.Nullable;
 import tomconn.growthapi.implementations.requirementhelpers.PrimitiveRequirementHelper;
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * A skeleton class which implements {@link GrowthProfile} methods to a large extend
+ * A skeleton class which implements {@link BaseGrowthProfile} methods to a large extend
  *
  * @param <E> any inheritor of {@link Event}
  * @param <P> any class which inherits from this class
  *
  * @since 0.0.5
  */
-abstract class AbstractGrowthProfile< E extends Event, P extends AbstractGrowthProfile< E, P > > implements GrowthProfile< E, P > {
+abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBaseGrowthProfile< E, P > > implements BaseGrowthProfile< E, P > {
 
     protected PrimitiveRequirementHelper< E > helper;
 
@@ -45,11 +45,11 @@ abstract class AbstractGrowthProfile< E extends Event, P extends AbstractGrowthP
     /**
      * Default constructor
      *
-     * @param helper the helper of this GrowthProfile
+     * @param helper the helper of this BaseGrowthProfile
      *
      * @since 0.0.5
      */
-    public AbstractGrowthProfile(PrimitiveRequirementHelper< E > helper) {
+    public AbstractBaseGrowthProfile(PrimitiveRequirementHelper< E > helper) {
 
         this.helper = helper;
     }

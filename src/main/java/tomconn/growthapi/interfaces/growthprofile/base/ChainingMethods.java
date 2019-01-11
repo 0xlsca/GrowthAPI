@@ -1,16 +1,16 @@
 package tomconn.growthapi.interfaces.growthprofile.base;
 
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 /**
  * This method is crucial for chaining methods. It adds the {@link #getThis()} method, which provides a parameterized
  * return value and helps with precise chaining
  *
- * @param <P> the class which implements {@link GrowthProfile}
+ * @param <P> the class which implements {@link BaseGrowthProfile}
  *
  * @since 0.0.6
  */
-public interface ChainingMethods< P extends GrowthProfile< ?, P > > {
+public interface ChainingMethods< P extends BaseGrowthProfile< ?, P > > {
 
     /**
      * Returns the reference to the current instance

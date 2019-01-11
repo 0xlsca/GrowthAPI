@@ -2,7 +2,7 @@ package tomconn.growthapi.interfaces.growthprofile.base;
 
 
 import net.minecraft.world.biome.Biome;
-import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  *
  * @since 0.0.6
  */
-public interface BiomeMethods< P extends GrowthProfile< ?, P > > extends ChainingMethods< P > {
+public interface BiomeMethods< P extends BaseGrowthProfile< ?, P > > extends ChainingMethods< P > {
 
     /**
      * Returns the currently registered whitelisted {@link Biome Biomes} in the form of a {@link Stream}
