@@ -2,6 +2,7 @@ package tomconn.growthapi.interfaces.growthprofile.probability.math.function.con
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
+import javax.annotation.Nonnull;
 import java.util.Comparator;
 
 /**
@@ -66,7 +67,8 @@ public interface Interval< T > extends DomainContainer< T > {
      *
      * @since 0.0.6
      */
-    default Boolean matchesUpper(T value, Comparator< T > comparator) {
+    @Nonnull
+    default Boolean matchesUpper(T value, @Nonnull Comparator< T > comparator) {
 
         T upperValue = getUpperBound().getBoundValue();
 
@@ -93,7 +95,8 @@ public interface Interval< T > extends DomainContainer< T > {
      *
      * @since 0.0.6
      */
-    default Boolean matchesLower(T value, Comparator< T > comparator) {
+    @Nonnull
+    default Boolean matchesLower(T value, @Nonnull Comparator< T > comparator) {
 
         T lowerValue = getLowerBound().getBoundValue();
 

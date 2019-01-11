@@ -3,6 +3,7 @@ package tomconn.growthapi.interfaces.registry.classbased;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -14,7 +15,7 @@ public interface ICBRRegistrationMethods {
 
     /**
      * This method registers a crop block for consideration if a
-     * {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre} event is fired.
+     * {@link CropGrowEvent.Pre} event is fired.
      *
      * @param blockClass   the class of the crop block
      * @param requirements the requirements needed for the crop to grow (all need to be matched)
@@ -23,7 +24,7 @@ public interface ICBRRegistrationMethods {
     boolean registerCropPre(Class<? extends Block> blockClass, Predicate<BlockEvent.CropGrowEvent.Pre>... requirements);
 
     /**
-     * Registers a consumer which will receive a {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post}
+     * Registers a consumer which will receive a {@link CropGrowEvent.Post}
      * event instance in case the respective class was found to be present on the event
      *
      * @param blockClass the class of the crop

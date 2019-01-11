@@ -3,20 +3,22 @@ package tomconn.growthapi.implementations.event;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.implementations.event.handlers.SaplingGrowTreeEventHandler;
 import tomconn.growthapi.implementations.event.helpers.crop.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.event.helpers.crop.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.event.helpers.sapling.SaplingGrowTreeEventHelper;
 import tomconn.growthapi.implementations.registry.GrowthRegistry;
-import tomconn.growthapi.interfaces.registry.IRegistry;
+import tomconn.growthapi.interfaces.registry.Registry;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * This class handles {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent} sub-events and {@link net.minecraftforge.event.terraingen.SaplingGrowTreeEvent}s.
+ * This class handles {@link CropGrowEvent} sub-events and {@link SaplingGrowTreeEvent}s.
  * <br>
  */
 public class EventManager {
@@ -25,14 +27,17 @@ public class EventManager {
         MinecraftForge.TERRAIN_GEN_BUS.register(SaplingGrowTreeEventHandler.class);
     }
 
-    public IRegistry getRegistry() {
+
+    @Nonnull
+    public Registry getRegistry() {
         return registry;
     }
 
     /*
         Attributes go here
          */
-    private IRegistry registry = new GrowthRegistry();
+    @Nonnull
+    private Registry registry = new GrowthRegistry();
 
 
     /*
@@ -44,7 +49,7 @@ public class EventManager {
      *
      * @param event the event
      */
-    public void manage(SaplingGrowTreeEvent event) {
+    public void manage(@Nonnull SaplingGrowTreeEvent event) {
 
         SaplingGrowTreeEventHelper helper = new SaplingGrowTreeEventHelper(event);
 
@@ -63,7 +68,7 @@ public class EventManager {
 
 
     /**
-     * Manages {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post} events which are passed from the
+     * Manages {@link CropGrowEvent.Post} events which are passed from the
      * main mod instance
      *
      * @param event the event
@@ -81,12 +86,12 @@ public class EventManager {
 
 
     /**
-     * Manages {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre} events which are passed from the
+     * Manages {@link CropGrowEvent.Pre} events which are passed from the
      * main mod instance.
      *
      * @param event the event
      */
-    public void manage(BlockEvent.CropGrowEvent.Pre event) {
+    public void manage(@Nonnull BlockEvent.CropGrowEvent.Pre event) {
         CropGrowPreEventHelper helper = new CropGrowPreEventHelper(event);
 
         List<Predicate<BlockEvent.CropGrowEvent.Pre>> predicates = registry.getRequirementsForCropPre(helper.getBlockClass());

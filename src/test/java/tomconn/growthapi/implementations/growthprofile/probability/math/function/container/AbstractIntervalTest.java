@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -14,24 +15,26 @@ import static tomconn.growthapi.implementations.growthprofile.probability.math.f
 
 public abstract class AbstractIntervalTest< T > {
 
-    private final Function< T, T > inverter;
-
     private final T upperValue;
     private final T lowerValue;
 
+    @Nonnull
     private final Bound< T > upperInclusive;
+    @Nonnull
     private final Bound< T > upperExclusive;
 
+    @Nonnull
     private final Bound< T > lowerInclusive;
+    @Nonnull
     private final Bound< T > lowerExclusive;
 
 
-    protected AbstractIntervalTest(Function< T, T > inverter, T value) {
+    protected AbstractIntervalTest(@Nonnull Function< T, T > inverter, T value) {
 
         Objects.requireNonNull(inverter);
         Objects.requireNonNull(value);
 
-        this.inverter = inverter;
+        Function< T, T > inverter1 = inverter;
 
         this.upperValue = value;
         this.lowerValue = inverter.apply(value);
@@ -51,7 +54,7 @@ public abstract class AbstractIntervalTest< T > {
 
         interval = makeInterval(upperInclusive, lowerInclusive);
         assertTrue(interval.isValuePresent(upperValue), "Created inclusive upper bound, however the value of the upper bound was marked as not included");
-        assertTrue(interval.isValuePresent(lowerValue), "Created inclusive uüüer bound, however the value of the lower bound was marked as not included");
+        assertTrue(interval.isValuePresent(lowerValue), "Created inclusive upper bound, however the value of the lower bound was marked as not included");
 
         interval = makeInterval(upperExclusive, lowerInclusive);
         assertFalse(interval.isValuePresent(upperValue), "Created exclusive upper bound, however the value of the bound was marked as included");

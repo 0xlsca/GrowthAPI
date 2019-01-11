@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.implementations.event.helpers.crop.CropGrowPreEventHelper;
 import tomconn.growthapi.implementations.event.helpers.sapling.SaplingGrowTreeEventHelper;
 
+import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public interface EventHelpers {
      * @throws NoSuchElementException
      * @since 0.0.6
      */
-    static < E extends Event > PrimitiveEventHelper< E > primitiveHelperFor(E event) {
+    static < E extends Event > PrimitiveEventHelper< E > primitiveHelperFor(@Nonnull E event) {
 
         Objects.requireNonNull(event);
 

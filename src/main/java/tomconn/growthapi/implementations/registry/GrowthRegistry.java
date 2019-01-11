@@ -4,24 +4,27 @@ import net.minecraft.block.Block;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.interfaces.growthprofile.GrowthProfile;
-import tomconn.growthapi.interfaces.registry.IRegistry;
+import tomconn.growthapi.interfaces.registry.Registry;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
-import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
+import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * This class delegates the respective methods to a respective instance of {@link IProfileBasedRegistry} and
+ * This class delegates the respective methods to a respective instance of {@link ProfileBasedRegistry} and
  * {@link IClassBasedRegistry}
  */
-public class GrowthRegistry implements IRegistry {
+public class GrowthRegistry implements Registry {
 
     private final IClassBasedRegistry classBasedRegistry = new ClassBasedRegistry();
-    private final IProfileBasedRegistry profileBasedRegistry = new ProfileBasedRegistry();
+    private final ProfileBasedRegistry profileBasedRegistry = new ProfileRegistry();
 
     @Override
     public boolean registerCropPre(Class<? extends Block> blockClass, Predicate<BlockEvent.CropGrowEvent.Pre>... requirements) {
@@ -38,8 +41,11 @@ public class GrowthRegistry implements IRegistry {
         return classBasedRegistry.registerSapling(blockClass, requirements);
     }
 
+
+    @Nonnull
     @Override
     public List<Predicate<BlockEvent.CropGrowEvent.Pre>> getRequirementsForCropPre(Class<? extends Block> blockClass) {
+
         List<Predicate<BlockEvent.CropGrowEvent.Pre>> ret = new ArrayList<>();
 
         ret.addAll(classBasedRegistry.getRequirementsForCropPre(blockClass));
@@ -48,8 +54,11 @@ public class GrowthRegistry implements IRegistry {
         return ret;
     }
 
+
+    @Nonnull
     @Override
     public List<Predicate<SaplingGrowTreeEvent>> getRequirementsForSapling(Class<? extends Block> blockClass) {
+
         List<Predicate<SaplingGrowTreeEvent>> ret = new ArrayList<>();
 
         ret.addAll(classBasedRegistry.getRequirementsForSapling(blockClass));
@@ -64,22 +73,22 @@ public class GrowthRegistry implements IRegistry {
     }
 
     @Override
-    public boolean registerCropGrowPreProfile(Class< ? extends Block > blockClass, GrowthProfile< BlockEvent.CropGrowEvent.Pre > growthProfile) {
+    public boolean registerCropGrowPreProfile(Class< ? extends Block > blockClass, GrowthProfile< Pre, ? > growthProfile) {
         return profileBasedRegistry.registerCropGrowPreProfile(blockClass, growthProfile);
     }
 
     @Override
-    public boolean[] registerCropGrowPreProfiles(Tuple< Class< ? extends Block >, GrowthProfile< BlockEvent.CropGrowEvent.Pre > >... tuples) {
+    public Collection< Tuple< Class< ? extends Block >, GrowthProfile< Pre, ? > > > registerCropGrowPreProfiles(Tuple< Class< ? extends Block >, GrowthProfile< Pre, ? > >... tuples) {
         return profileBasedRegistry.registerCropGrowPreProfiles(tuples);
     }
 
     @Override
-    public boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent > profile) {
+    public boolean registerSaplingProfile(Class< ? extends Block > blockClass, GrowthProfile< SaplingGrowTreeEvent, ? > profile) {
         return profileBasedRegistry.registerSaplingProfile(blockClass, profile);
     }
 
     @Override
-    public boolean[] registerSaplingProfiles(Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent > >... profiles) {
+    public Collection< Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > > > registerSaplingProfiles(Tuple< Class< ? extends Block >, GrowthProfile< SaplingGrowTreeEvent, ? > >... profiles) {
         return profileBasedRegistry.registerSaplingProfiles(profiles);
     }
 }

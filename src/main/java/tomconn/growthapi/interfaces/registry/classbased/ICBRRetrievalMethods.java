@@ -3,6 +3,7 @@ package tomconn.growthapi.interfaces.registry.classbased;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
 import tomconn.growthapi.implementations.event.EventManager;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface ICBRRetrievalMethods {
      *
      * @param blockClass the class of the crop
      * @return an array of predicates which are registered with the block class for the
-     * {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre} event
+     * {@link CropGrowEvent.Pre} event
      */
     List<Predicate<BlockEvent.CropGrowEvent.Pre>> getRequirementsForCropPre(Class<? extends Block> blockClass);
 
@@ -39,7 +40,7 @@ public interface ICBRRetrievalMethods {
      *
      * @param blockClass the class of the crop
      * @return an array of predicates which are registered with the block class for the
-     * {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post} event
+     * {@link CropGrowEvent.Post} event
      */
     Consumer<BlockEvent.CropGrowEvent.Post> getConsumerForCropPost(Class<? extends Block> blockClass);
 }

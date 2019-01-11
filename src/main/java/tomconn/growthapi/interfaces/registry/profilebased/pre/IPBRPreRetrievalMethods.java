@@ -2,12 +2,13 @@ package tomconn.growthapi.interfaces.registry.profilebased.pre;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
+import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * IPBR is the abbreviation for {@link tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry}
+ * IPBR is the abbreviation for {@link ProfileBasedRegistry}
  */
 public interface IPBRPreRetrievalMethods {
 

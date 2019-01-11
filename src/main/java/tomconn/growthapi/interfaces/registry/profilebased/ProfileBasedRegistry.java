@@ -9,7 +9,7 @@ import tomconn.growthapi.interfaces.registry.profilebased.sapling.IPBRSaplingMet
  * {@link GrowthProfile} in one place and have them easily accessible
  * from other places within the library.
  */
-public interface IProfileBasedRegistry extends
+public interface ProfileBasedRegistry extends
         IPBRPreMethods,
         IPBRSaplingMethods {
 }

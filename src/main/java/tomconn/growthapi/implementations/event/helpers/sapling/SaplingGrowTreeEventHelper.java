@@ -8,6 +8,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import tomconn.growthapi.implementations.event.helpers.PrimitiveEventHelper;
 
+import javax.annotation.Nonnull;
+
 /**
  * This class is a utility class and helps with retrieving information from
  * {@link SaplingGrowTreeEvent}s.
@@ -64,6 +66,7 @@ public class SaplingGrowTreeEventHelper extends PrimitiveEventHelper< SaplingGro
      *
      * @since 0.0.5
      */
+    @Nonnull
     @Override
     public Biome getBiome() {
 

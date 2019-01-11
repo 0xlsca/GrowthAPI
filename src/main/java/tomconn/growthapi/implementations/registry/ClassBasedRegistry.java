@@ -5,8 +5,9 @@ import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.interfaces.registry.classbased.IClassBasedRegistry;
-import tomconn.growthapi.interfaces.registry.profilebased.IProfileBasedRegistry;
+import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -19,22 +20,26 @@ public class ClassBasedRegistry implements IClassBasedRegistry {
     /**
      *      Pre
      */
+    @Nonnull
     private Map<Class<? extends Block>, Predicate<Pre>[]> cropPreMap = new HashMap<>();
 
     /**
      *      Post
      */
+    @Nonnull
     private Map<Class<? extends Block>, Consumer<BlockEvent.CropGrowEvent.Post>> cropPostMap = new HashMap<>();
 
     /**
      *      Saplings
      */
+    @Nonnull
     private Map<Class<? extends Block>, Predicate<SaplingGrowTreeEvent>[]> saplingMap = new HashMap<>();
 
     /**
      *      Profiles
      */
-    private IProfileBasedRegistry profileRegistry = new ProfileBasedRegistry();
+    @Nonnull
+    private ProfileBasedRegistry profileRegistry = new ProfileRegistry();
 
     @Override
     public boolean registerCropPre(Class<? extends Block> blockClass, Predicate<Pre>... requirements) {
@@ -51,8 +56,11 @@ public class ClassBasedRegistry implements IClassBasedRegistry {
         return saplingMap.putIfAbsent(blockClass, requirements) == null;
     }
 
+
+    @Nonnull
     @Override
     public List<Predicate<Pre>> getRequirementsForCropPre(Class<? extends Block> blockClass) {
+
         Predicate<Pre>[] predicates = cropPreMap.get(blockClass);
 
         if (predicates != null) {
@@ -64,8 +72,11 @@ public class ClassBasedRegistry implements IClassBasedRegistry {
         return Collections.emptyList();
     }
 
+
+    @Nonnull
     @Override
     public List<Predicate<SaplingGrowTreeEvent>> getRequirementsForSapling(Class<? extends Block> blockClass) {
+
         Predicate<SaplingGrowTreeEvent>[] predicates = saplingMap.get(blockClass);
 
         if (predicates != null) {

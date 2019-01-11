@@ -4,6 +4,8 @@ import net.minecraft.util.math.BlockPos;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
 
+import javax.annotation.Nonnull;
+
 class BlockPosIntervalTest extends AbstractIntervalTest< BlockPos > {
 
     protected BlockPosIntervalTest() {
@@ -19,6 +21,7 @@ class BlockPosIntervalTest extends AbstractIntervalTest< BlockPos > {
     }
 
 
+    @Nonnull
     @Override
     Interval< BlockPos > makeInterval(Bound< BlockPos > upper, Bound< BlockPos > lower) {
 

@@ -2,6 +2,7 @@ package tomconn.growthapi.interfaces.growthprofile.probability.math.function;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import javax.annotation.Nonnull;
 import java.util.function.Function;
 
 /**
@@ -22,6 +23,7 @@ public interface ProbabilityFunction< E extends Event > extends Function< E, Dou
      *                                                                     the passed {@link Event}
      * @since 0.0.6
      */
+    @Nonnull
     @Override
     Double apply(E e);
 

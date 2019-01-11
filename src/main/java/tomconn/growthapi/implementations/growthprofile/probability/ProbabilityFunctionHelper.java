@@ -9,6 +9,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Prob
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +38,8 @@ public abstract class ProbabilityFunctionHelper< E extends Event > {
      *
      * @since 0.0.6
      */
-    protected < T, C extends DomainContainer< T > > ProbabilityFunction< E > tailorFunction(Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, Function< E, T > valueSupplier) {
+    @Nonnull
+    protected < T, C extends DomainContainer< T > > ProbabilityFunction< E > tailorFunction(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, @Nonnull Function< E, T > valueSupplier) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(valueSupplier);
@@ -63,7 +65,7 @@ public abstract class ProbabilityFunctionHelper< E extends Event > {
      *
      * @since 0.0.6
      */
-    protected < T, C extends DomainContainer< T > > Stream< Double > filteredStream(Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, T value) {
+    protected < T, C extends DomainContainer< T > > Stream< Double > filteredStream(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, T value) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(value);
@@ -90,7 +92,7 @@ public abstract class ProbabilityFunctionHelper< E extends Event > {
      * @see #checkMappings(Collection, Object)
      * @since 0.0.6
      */
-    protected < T, C extends DomainContainer< T > > Double fetchProbability(Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, T value) {
+    protected < T, C extends DomainContainer< T > > Double fetchProbability(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, @Nonnull T value) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(value);
@@ -118,7 +120,7 @@ public abstract class ProbabilityFunctionHelper< E extends Event > {
      * @throws MathematicalFunction.MultiMappingException   thrown if there is more than one mapping within the {@link Collection}
      * @since 0.0.6
      */
-    protected < T > void checkMappings(Collection< Double > probabilities, T value) throws MathematicalFunction.MissingMappingException, MathematicalFunction.MultiMappingException {
+    protected < T > void checkMappings(@Nonnull Collection< Double > probabilities, @Nonnull T value) throws MathematicalFunction.MissingMappingException, MathematicalFunction.MultiMappingException {
 
         Objects.requireNonNull(probabilities);
         Objects.requireNonNull(value);
@@ -150,7 +152,8 @@ public abstract class ProbabilityFunctionHelper< E extends Event > {
      *
      * @since 0.0.6
      */
-    protected PrimitiveEventHelper< E > supplyHelper(E event) {
+    @Nonnull
+    protected PrimitiveEventHelper< E > supplyHelper(@Nonnull E event) {
 
         return EventHelpers.primitiveHelperFor(event);
     }

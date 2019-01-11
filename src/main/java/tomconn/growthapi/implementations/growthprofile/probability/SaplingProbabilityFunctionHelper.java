@@ -11,13 +11,16 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Prob
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Objects;
 
 
 public class SaplingProbabilityFunctionHelper implements PrimitiveProabilityFunctionHelper< SaplingGrowTreeEvent > {
 
+    @Nonnull
     private final SaplingTupleProbabilityHelper tupleHelper;
+    @Nonnull
     private final SaplingIntervalProbabilityHelper intervalHelper;
 
 

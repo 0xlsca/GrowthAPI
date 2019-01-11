@@ -3,6 +3,7 @@ package tomconn.growthapi.implementations.growthprofile.probability.math.functio
 import net.minecraft.util.math.BlockPos;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
+import javax.annotation.Nonnull;
 import java.util.Comparator;
 
 /**
@@ -12,13 +13,15 @@ import java.util.Comparator;
  */
 public class BlockPosInterval extends AbstractInterval< BlockPos > {
 
+    @Nonnull
     private final Comparator< BlockPos > upperComparator;
+    @Nonnull
     private final Comparator< BlockPos > lowerComparator;
 
 
     {
-        /**
-         * Returns -1, 0 or 1 depending on whether p1 is wholly smaller, wholly equal or minimally greater than p2
+        /*
+          Returns -1, 0 or 1 depending on whether p1 is wholly smaller, wholly equal or minimally greater than p2
          */
         upperComparator = (p1, p2) -> {
             if (p1.equals(p2)) {
@@ -34,8 +37,8 @@ public class BlockPosInterval extends AbstractInterval< BlockPos > {
             return 1;
         };
 
-        /**
-         * Returns -1, 0 or 1 depending on whether p1 is minimally smaller, wholly equal or wholly greater than p2
+        /*
+          Returns -1, 0 or 1 depending on whether p1 is minimally smaller, wholly equal or wholly greater than p2
          */
         lowerComparator = (p1, p2) -> {
             if (p1.equals(p2)) {

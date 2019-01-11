@@ -40,7 +40,7 @@ public interface TemperatureTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > temperatureTupleChance(ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float > > tuples) {
+    default ProbabilityFunction< E > temperatureTupleChance(ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float > >... tuples) {
 
         return temperatureTupleChance(Arrays.asList(tuples));
     }

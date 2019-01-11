@@ -2,10 +2,11 @@ package tomconn.growthapi.implementations.event.helpers.crop;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
 
 /**
  * This is a utility class which shall help with retrieving information from
- * {@link net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post} events.
+ * {@link CropGrowEvent.Post} events.
  * <p>
  * Please note that every helper is bound to be tied to exactly one event, so in case you have multiple events,
  * each of them will require a dedicated event-helper.

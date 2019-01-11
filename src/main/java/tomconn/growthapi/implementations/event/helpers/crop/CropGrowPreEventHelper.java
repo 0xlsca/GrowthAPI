@@ -7,6 +7,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.implementations.event.helpers.PrimitiveEventHelper;
 
+import javax.annotation.Nonnull;
+
 /**
  * This is a utility class which shall help with retrieving information from
  * {@link Pre} events.
@@ -61,6 +63,7 @@ public class CropGrowPreEventHelper extends PrimitiveEventHelper< Pre > {
      *
      * @since 0.0.5
      */
+    @Nonnull
     @Override
     public Biome getBiome() {
 

@@ -3,6 +3,7 @@ package tomconn.growthapi.interfaces.growthprofile.probability.math.function;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.function.Function;
 
@@ -101,7 +102,7 @@ public interface MathematicalFunction< D, C > extends Function< DomainContainer<
          *
          * @since 0.0.6
          */
-        public MultiMappingException(String valueRepresentation, Collection< String > mappings) {
+        public MultiMappingException(String valueRepresentation, @Nonnull Collection< String > mappings) {
 
             super(String.format(
                     "The value %s has multiple mappings: \n\n %s . \n" +

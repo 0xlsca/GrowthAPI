@@ -3,13 +3,13 @@ package tomconn.growthapi.implementations.growthprofile.probability.math.functio
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
 
+import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Function;
 
 class DefaultIntervalTest< T > extends AbstractIntervalTest< T > {
 
-    private final Function< T, T > inverter;
     private final Comparator< T > comparator;
 
 
@@ -21,11 +21,12 @@ class DefaultIntervalTest< T > extends AbstractIntervalTest< T > {
         Objects.requireNonNull(inverter);
         Objects.requireNonNull(comparator);
 
-        this.inverter = inverter;
+        Function< T, T > inverter1 = inverter;
         this.comparator = comparator;
     }
 
 
+    @Nonnull
     @Override
     Interval< T > makeInterval(Bound< T > upper, Bound< T > lower) {
 
