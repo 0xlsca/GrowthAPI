@@ -18,6 +18,9 @@ Growth API is an API written in Java 8 which is meant to ease the modification o
  ### 0.0.6: probability-function update
  
  - added chance-based profiles with an extensive backend
+ - added interface backends for event-helpers, requirement-helpers and growthprofiles
+ - added static-level endpoints for obtaining instances for the interfaces and narrowed down access to all implementation classes
+ - updated javadoc across the board to contain @since marks
  
  
  ### 0.0.5: base release   
