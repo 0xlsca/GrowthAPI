@@ -9,13 +9,9 @@ Growth API is an API written in Java 8 which is meant to ease the modification o
  For a quick start, include the api as a runtime dependency and read the wiki!
  
  ## Todo until next release:
- 
- - ~~rewrite the base GrowthProfile classes and give them an interface backend~~  see  [commit](https://github.com/TomConnery/GrowthAPI/commit/ced4d1b94cd4e65cb776717180c49e9bc72d8200)
- - move this todo list to projects ![](https://static-cdn.jtvnw.net/emoticons/v1/25/1.0)
- - add static-level entry functions which allow for obtaining all relevant instances (helpers etc. included)
- - add default-value methods to the library to help with tailoring ProbabilityFunctions that only have one value and otherwise a default one
- - rewrite the probabilities to have their own type instead of using double
- - update wiki
+
+[0.0.6 release project](https://github.com/TomConnery/GrowthAPI/projects/2)
+
  
  ## Changelog:
  
