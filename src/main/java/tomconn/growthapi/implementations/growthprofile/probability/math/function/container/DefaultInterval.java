@@ -1,5 +1,6 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import java.util.Comparator;
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @since 0.0.6
  */
-public class DefaultInterval< T > extends AbstractInterval< T > {
+class DefaultInterval< T > extends AbstractInterval< T > {
 
     private final Comparator< T > typeComparator;
 
@@ -52,6 +53,30 @@ public class DefaultInterval< T > extends AbstractInterval< T > {
 
         return matchesLower(value, typeComparator) && matchesUpper(value, typeComparator);
 
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public Interval< T > withUpperBound(Bound< T > upper) {
+
+        return new DefaultInterval<>(upper, this.getLowerBound(), this.typeComparator);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public Interval< T > withLowerBound(Bound< T > lower) {
+
+        return new DefaultInterval<>(this.getUpperBound(), lower, this.typeComparator);
     }
 
 }

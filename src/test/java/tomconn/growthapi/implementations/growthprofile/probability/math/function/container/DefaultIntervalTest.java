@@ -1,7 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;

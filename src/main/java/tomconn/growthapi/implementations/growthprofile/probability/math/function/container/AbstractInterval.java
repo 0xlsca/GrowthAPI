@@ -1,5 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound.BoundKind;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import java.util.Objects;
@@ -11,10 +13,10 @@ import java.util.Objects;
  *
  * @since 0.0.6
  */
-public abstract class AbstractInterval< T > implements Interval< T > {
+abstract class AbstractInterval< T > implements Interval< T > {
 
-    protected final Bound< T > upperBound;
-    protected final Bound< T > lowerBound;
+    private final Bound< T > upperBound;
+    private final Bound< T > lowerBound;
 
 
     /**
@@ -25,7 +27,7 @@ public abstract class AbstractInterval< T > implements Interval< T > {
      *
      * @since 0.0.6
      */
-    protected AbstractInterval(Bound< T > upperBound, Bound< T > lowerBound) {
+    AbstractInterval(Bound< T > upperBound, Bound< T > lowerBound) {
 
         Objects.requireNonNull(upperBound);
         Objects.requireNonNull(lowerBound);
@@ -56,6 +58,78 @@ public abstract class AbstractInterval< T > implements Interval< T > {
     public Bound< T > getLowerBound() {
 
         return lowerBound;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since TODO
+     */
+    @Override
+    public Interval< T > withUpperValue(T value) {
+
+        return withUpperBound(this.upperBound.withValue(value));
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public Interval< T > withLowerValue(T value) {
+
+        return withLowerBound(this.lowerBound.withValue(value));
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public T getUpperBoundValue() {
+
+        return upperBound.getBoundValue();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public BoundKind getUpperKind() {
+
+        return upperBound.getBoundKind();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public T getLowerBoundValue() {
+
+        return lowerBound.getBoundValue();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public BoundKind getLowerKind() {
+
+        return lowerBound.getBoundKind();
     }
 
 
@@ -91,6 +165,11 @@ public abstract class AbstractInterval< T > implements Interval< T > {
         }
 
 
+        /**
+         * {@inheritDoc}
+         *
+         * @since 0.0.6
+         */
         @Override
         public T getBoundValue() {
 
@@ -98,10 +177,39 @@ public abstract class AbstractInterval< T > implements Interval< T > {
         }
 
 
+        /**
+         * {@inheritDoc}
+         *
+         * @since 0.0.6
+         */
         @Override
         public BoundKind getBoundKind() {
 
             return kind;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         *
+         * @since 0.0.6
+         */
+        @Override
+        public Bound< T > withValue(T value) {
+
+            return new DefaultBound<>(value, this.kind);
+        }
+
+
+        /**
+         * {@inheritDoc}
+         *
+         * @since 0.0.6
+         */
+        @Override
+        public Bound< T > withKind(BoundKind kind) {
+
+            return new DefaultBound<>(this.value, kind);
         }
 
     }

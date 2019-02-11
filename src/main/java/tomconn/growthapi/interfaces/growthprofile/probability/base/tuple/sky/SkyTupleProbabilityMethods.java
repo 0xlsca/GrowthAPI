@@ -1,6 +1,7 @@
 package tomconn.growthapi.interfaces.growthprofile.probability.base.tuple.sky;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 
 /**
@@ -20,6 +21,6 @@ public interface SkyTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > skyChance(double ifCanSee, double ifCannotSee);
+    ProbabilityFunction< E > skyChance(Probability ifCanSee, Probability ifCannotSee);
 
 }

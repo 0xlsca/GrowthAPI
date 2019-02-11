@@ -2,7 +2,7 @@ package tomconn.growthapi.implementations.growthprofile;
 
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.implementations.requirementhelpers.sapling.SaplingGrowTreeRequirementHelper;
+import tomconn.growthapi.implementations.requirementhelpers.RequirementHelpers;
 
 import javax.annotation.Nonnull;
 
@@ -20,7 +20,7 @@ class SaplingGrowthProfile extends AbstractBaseGrowthProfile< SaplingGrowTreeEve
      */
     SaplingGrowthProfile() {
 
-        super(new SaplingGrowTreeRequirementHelper());
+        super(RequirementHelpers.sapling());
     }
 
 

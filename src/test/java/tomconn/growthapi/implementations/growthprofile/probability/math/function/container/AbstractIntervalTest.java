@@ -1,15 +1,14 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
 import org.junit.jupiter.api.Test;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static tomconn.growthapi.implementations.growthprofile.probability.math.function.container.DomainContainers.boundOfExclusive;
 import static tomconn.growthapi.implementations.growthprofile.probability.math.function.container.DomainContainers.boundOfInclusive;
 
@@ -33,8 +32,6 @@ public abstract class AbstractIntervalTest< T > {
 
         Objects.requireNonNull(inverter);
         Objects.requireNonNull(value);
-
-        Function< T, T > inverter1 = inverter;
 
         this.upperValue = value;
         this.lowerValue = inverter.apply(value);
@@ -67,6 +64,22 @@ public abstract class AbstractIntervalTest< T > {
         interval = makeInterval(upperExclusive, lowerExclusive);
         assertFalse(interval.isValuePresent(upperValue), "Created exclusive upper bound, however the value of the bound was marked as included");
         assertFalse(interval.isValuePresent(lowerValue), "Created exclusive lower bound, however the value of the bound was marked as included");
+
+    }
+
+
+    @Test
+    void with_upper_works(Interval< T > interval, T differentValue) {
+
+        Objects.requireNonNull(interval);
+        Objects.requireNonNull(differentValue);
+
+        assertNotEquals(differentValue, interval.getUpperBoundValue(), "passed value must be different from received one");
+
+        T newValue = interval.withUpperValue(differentValue).getUpperBoundValue();
+
+        assertNotEquals(newValue, interval.getUpperBoundValue(), "used withUpperValue on interval with different value, received same value when querying, however");
+
 
     }
 

@@ -1,0 +1,8 @@
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="haltOnException" value="false"/>
+    <module name="JavadocPackage"/>
+    <module name="TreeWalker">
+
+    </module>
+</module>

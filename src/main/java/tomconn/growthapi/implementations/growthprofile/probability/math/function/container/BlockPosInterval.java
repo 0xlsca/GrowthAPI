@@ -1,6 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math.function.container;
 
 import net.minecraft.util.math.BlockPos;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
 import javax.annotation.Nonnull;
@@ -11,7 +12,7 @@ import java.util.Comparator;
  * <br>
  * This is required because instances of {@link BlockPos} are not easily comparable against other instances
  */
-public class BlockPosInterval extends AbstractInterval< BlockPos > {
+class BlockPosInterval extends AbstractInterval< BlockPos > {
 
     @Nonnull
     private final Comparator< BlockPos > upperComparator;
@@ -62,7 +63,7 @@ public class BlockPosInterval extends AbstractInterval< BlockPos > {
      *
      * @since 0.0.6
      */
-    protected BlockPosInterval(Bound< BlockPos > upperBound, Bound< BlockPos > lowerBound) {
+    BlockPosInterval(Bound< BlockPos > upperBound, Bound< BlockPos > lowerBound) {
 
         super(upperBound, lowerBound);
     }
@@ -77,6 +78,30 @@ public class BlockPosInterval extends AbstractInterval< BlockPos > {
     public boolean isValuePresent(BlockPos value) {
 
         return matchesUpper(value, upperComparator) && matchesLower(value, lowerComparator);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public Interval< BlockPos > withUpperBound(Bound< BlockPos > upper) {
+
+        return new BlockPosInterval(upper, this.getLowerBound());
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public Interval< BlockPos > withLowerBound(Bound< BlockPos > lower) {
+
+        return new BlockPosInterval(this.getUpperBound(), lower);
     }
 
 }

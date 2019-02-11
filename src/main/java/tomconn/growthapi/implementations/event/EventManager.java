@@ -4,22 +4,28 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post;
+import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import tomconn.growthapi.implementations.event.handlers.SaplingGrowTreeEventHandler;
-import tomconn.growthapi.implementations.event.helpers.crop.CropGrowPostEventHelper;
-import tomconn.growthapi.implementations.event.helpers.crop.CropGrowPreEventHelper;
-import tomconn.growthapi.implementations.event.helpers.sapling.SaplingGrowTreeEventHelper;
+import tomconn.growthapi.implementations.event.helpers.CropGrowPostEventHelper;
+import tomconn.growthapi.implementations.event.helpers.EventHelpers;
 import tomconn.growthapi.implementations.registry.GrowthRegistry;
+import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
 import tomconn.growthapi.interfaces.registry.Registry;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
  * This class handles {@link CropGrowEvent} sub-events and {@link SaplingGrowTreeEvent}s.
  * <br>
+ *
+ * @since 0.0.5
  */
 public class EventManager {
 
@@ -28,10 +34,19 @@ public class EventManager {
     }
 
 
+    /**
+     * Returns the currently help {@link Registry}
+     *
+     * @return the registry
+     *
+     * @since 0.0.5
+     */
     @Nonnull
     public Registry getRegistry() {
+
         return registry;
     }
+
 
     /*
         Attributes go here
@@ -44,66 +59,34 @@ public class EventManager {
     Methods go here
      */
 
+
     /**
      * Manages {@link SaplingGrowTreeEvent}s which are passed from the main mod class
      *
      * @param event the event
+     *
+     * @since 0.0.5
      */
     public void manage(@Nonnull SaplingGrowTreeEvent event) {
 
-        SaplingGrowTreeEventHelper helper = new SaplingGrowTreeEventHelper(event);
+        BaseEventHelper helper = EventHelpers.saplingGrowTree(event);
 
-        List<Predicate<SaplingGrowTreeEvent>> predicates = registry.getRequirementsForSapling(helper.getBlockClass());
+        Optional< Collection< ? extends Predicate< SaplingGrowTreeEvent > > > predicates = registry.getRequirementsForSapling(helper.getBlockClass());
 
-        event.setResult(
-                processEventAnd(
-                        predicates,
-                        event,
-                        Event.Result.ALLOW,
-                        Event.Result.DENY
-                )
-        );
-
-    }
-
-
-    /**
-     * Manages {@link CropGrowEvent.Post} events which are passed from the
-     * main mod instance
-     *
-     * @param event the event
-     */
-    public void manage(BlockEvent.CropGrowEvent.Post event) {
-
-        CropGrowPostEventHelper helper = new CropGrowPostEventHelper(event);
-
-        Consumer<BlockEvent.CropGrowEvent.Post> consumer = registry.getConsumerForCropPost(helper.getBlockClass());
-
-        if (consumer != null) {
-            consumer.accept(event);
+        if (predicates.isPresent()) {
+            event.setResult(
+                    processEventAnd(
+                            predicates.get(),
+                            event,
+                            Event.Result.ALLOW,
+                            Event.Result.DENY
+                    )
+            );
+        } else {
+            event.setResult(Result.DEFAULT);
         }
-    }
 
 
-    /**
-     * Manages {@link CropGrowEvent.Pre} events which are passed from the
-     * main mod instance.
-     *
-     * @param event the event
-     */
-    public void manage(@Nonnull BlockEvent.CropGrowEvent.Pre event) {
-        CropGrowPreEventHelper helper = new CropGrowPreEventHelper(event);
-
-        List<Predicate<BlockEvent.CropGrowEvent.Pre>> predicates = registry.getRequirementsForCropPre(helper.getBlockClass());
-
-        event.setResult(
-                processEventAnd(
-                        predicates,
-                        event,
-                        Event.Result.ALLOW,
-                        Event.Result.DENY
-                )
-        );
     }
 
 
@@ -114,9 +97,13 @@ public class EventManager {
      * @param instance   the instance of the event
      * @param positive   returned if all predicates were met
      * @param negative   returned if at least one predicates wasn't met
+     *
      * @return either the passed <b>positive</b> or <b>negative</b> value
+     *
+     * @since 0.0.5
      */
-    private <E> Event.Result processEventAnd(List<Predicate<E>> predicates, E instance, Event.Result positive, Event.Result negative) {
+    private < E > Event.Result processEventAnd(Collection< ? extends Predicate< E > > predicates, E instance, Event.Result positive, Event.Result negative) {
+
         boolean passing = predicates.stream()
                 .allMatch(p -> p.test(instance));      // checks whether all predicates are true. If not, it returns false
 
@@ -126,4 +113,50 @@ public class EventManager {
             return negative;
         }
     }
+
+
+    /**
+     * Manages {@link CropGrowEvent.Post} events which are passed from the main mod instance
+     *
+     * @param event the event
+     *
+     * @since 0.0.5
+     */
+    public void manage(BlockEvent.CropGrowEvent.Post event) {
+
+        CropGrowPostEventHelper helper = new CropGrowPostEventHelper(event);
+
+        Optional< Consumer< Post > > consumer = registry.getConsumerForCropPost(helper.getBlockClass());
+
+        consumer.ifPresent(c -> c.accept(event));
+    }
+
+
+    /**
+     * Manages {@link Pre} events which are passed from the main mod instance.
+     *
+     * @param event the event
+     *
+     * @since 0.0.5
+     */
+    public void manage(@Nonnull Pre event) {
+
+        BaseEventHelper helper = EventHelpers.cropPre(event);
+
+        Optional< Collection< ? extends Predicate< Pre > > > predicates = registry.getRequirementsForCropPre(helper.getBlockClass());
+
+        if (predicates.isPresent()) {
+            event.setResult(
+                    processEventAnd(
+                            predicates.get(),
+                            event,
+                            Event.Result.ALLOW,
+                            Event.Result.DENY
+                    )
+            );
+        } else {
+            event.setResult(Result.DEFAULT);
+        }
+    }
+
 }

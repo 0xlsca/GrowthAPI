@@ -1,7 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile;
 
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.implementations.requirementhelpers.crop.CropGrowPreRequirementHelper;
+import tomconn.growthapi.implementations.requirementhelpers.RequirementHelpers;
 
 import javax.annotation.Nonnull;
 
@@ -21,7 +21,8 @@ class CropGrowthProfile extends AbstractBaseGrowthProfile< Pre, CropGrowthProfil
      * @since 0.0.5
      */
     CropGrowthProfile() {
-        super(new CropGrowPreRequirementHelper());
+
+        super(RequirementHelpers.cropPre());
     }
 
 

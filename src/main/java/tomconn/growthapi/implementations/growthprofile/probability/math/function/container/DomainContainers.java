@@ -4,9 +4,9 @@ import net.minecraft.util.math.BlockPos;
 import tomconn.growthapi.implementations.growthprofile.probability.math.function.container.AbstractInterval.DefaultBound;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound.BoundKind;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound;
-import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval.Bound.BoundKind;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -81,6 +81,48 @@ public interface DomainContainers {
         Objects.requireNonNull(lowerKind);
 
         return intervalOf(boundOf(upperValue, upperKind), boundOf(lowerValue, lowerKind), comparator);
+    }
+
+
+    /**
+     * Returns a wholly inclusive {@link Interval Interval-instance} which contians the passed values
+     *
+     * @param upperValue the value of the upper bound
+     * @param lowerValue the value of the lower bound
+     * @param comparator a comparator for the type
+     * @param <T>        the type of the interval
+     *
+     * @return a new {@link Interval} which is made up of the passed values
+     *
+     * @since 0.0.6
+     */
+    static < T > Interval< T > intervalOfInclusive(T upperValue, T lowerValue, Comparator< T > comparator) {
+
+        Objects.requireNonNull(upperValue);
+        Objects.requireNonNull(lowerValue);
+        return intervalOf(boundOfInclusive(upperValue), boundOfInclusive(lowerValue), comparator);
+
+    }
+
+
+    /**
+     * Returns a wholly exclusive {@link Interval Interval-instance} which contains the passed values
+     *
+     * @param upperValue the value of the upper bound
+     * @param lowerValue the value of the lower bound
+     * @param comparator a comparator for the type
+     * @param <T>        the type of the interval
+     *
+     * @return a new {@link Interval} which is made up of the passed values
+     *
+     * @since 0.0.6
+     */
+    static < T > Interval< T > intervalOfExclusive(T upperValue, T lowerValue, Comparator< T > comparator) {
+
+        Objects.requireNonNull(upperValue);
+        Objects.requireNonNull(lowerValue);
+        return intervalOf(boundOfExclusive(upperValue), boundOfExclusive(lowerValue), comparator);
+
     }
 
 

@@ -29,6 +29,6 @@ public interface ProbabilityFunctionTuple< T, C extends DomainContainer< T > > {
      *
      * @since 0.0.6
      */
-    Double getProbability();
+    Probability getProbability();
 
 }

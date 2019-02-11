@@ -1,5 +1,6 @@
 package tomconn.growthapi.implementations.growthprofile.probability.math;
 
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
@@ -13,11 +14,11 @@ import java.util.Objects;
  *
  * @since 0.0.6
  */
-public class FunctionTuple< T, C extends DomainContainer< T > > implements ProbabilityFunctionTuple< T, C > {
+class FunctionTuple< T, C extends DomainContainer< T > > implements ProbabilityFunctionTuple< T, C > {
 
 
     private final C container;
-    private final double probability;
+    private final Probability probability;
 
 
     /**
@@ -28,7 +29,7 @@ public class FunctionTuple< T, C extends DomainContainer< T > > implements Proba
      *
      * @since 0.0.6
      */
-    public FunctionTuple(C container, double probability) {
+    FunctionTuple(C container, Probability probability) {
 
         Objects.requireNonNull(container);
 
@@ -55,7 +56,7 @@ public class FunctionTuple< T, C extends DomainContainer< T > > implements Proba
      * @since 0.0.6
      */
     @Override
-    public Double getProbability() {
+    public Probability getProbability() {
 
         return probability;
     }

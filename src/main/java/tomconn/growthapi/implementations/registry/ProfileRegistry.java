@@ -3,15 +3,12 @@ package tomconn.growthapi.implementations.registry;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.implementations.growthprofile.GrowthProfiles;
-import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.BaseProfiles;
+import tomconn.growthapi.interfaces.growthprofile.base.BaseGrowthProfile;
 import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -67,11 +64,11 @@ public class ProfileRegistry implements ProfileBasedRegistry {
      * @since 0.0.5
      */
     @Override
-    public List< Predicate< Pre > > getRequirementsForCropPre(Class< ? extends Block > blockClass) {
+    public Optional< Collection< ? extends Predicate< Pre > > > getRequirementsForCropPre(Class< ? extends Block > blockClass) {
 
         Objects.requireNonNull(blockClass);
-        BaseGrowthProfile< Pre, ? > profile = cropPreMap.getOrDefault(blockClass, GrowthProfiles.cropGrowPre());
-        return profile.liquidate();
+        BaseGrowthProfile< Pre, ? > profile = cropPreMap.getOrDefault(blockClass, BaseProfiles.cropGrowPre());
+        return Optional.ofNullable(profile.liquidate());
     }
 
 
@@ -81,11 +78,11 @@ public class ProfileRegistry implements ProfileBasedRegistry {
      * @since 0.0.5
      */
     @Override
-    public List< Predicate< SaplingGrowTreeEvent > > getRequirementsForSapling(Class< ? extends Block > blockClass) {
+    public Optional< Collection< ? extends Predicate< SaplingGrowTreeEvent > > > getRequirementsForSapling(Class< ? extends Block > blockClass) {
 
         Objects.requireNonNull(blockClass);
-        BaseGrowthProfile< SaplingGrowTreeEvent, ? > profile = saplingMap.getOrDefault(blockClass, GrowthProfiles.saplingGrowTree());
-        return profile.liquidate();
+        BaseGrowthProfile< SaplingGrowTreeEvent, ? > profile = saplingMap.getOrDefault(blockClass, BaseProfiles.saplingGrowTree());
+        return Optional.ofNullable(profile.liquidate());
     }
 
 }

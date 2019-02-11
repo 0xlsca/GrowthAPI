@@ -1,6 +1,6 @@
 /**
- * This package contains all relevant chance-function interfaces for the
- * {@link tomconn.growthapi.implementations.growthprofile.BaseGrowthProfile}
+ * This package contains all relevant probability function interfaces for the
+ * {@link tomconn.growthapi.interfaces.growthprofile.GrowthProfile GrowthProfile}
  *
  * @since 0.0.6
  */

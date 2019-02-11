@@ -1,6 +1,7 @@
 package tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval;
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound.BoundKind;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
@@ -14,44 +15,51 @@ public interface Interval< T > extends DomainContainer< T > {
 
 
     /**
-     * This interface represents a mathematical bound
+     * Returns a new instance with the specified upper bound
+     *
+     * @param upper the new upper bound
+     *
+     * @return a new instance with the passed upper bound
      *
      * @since 0.0.6
      */
-    interface Bound< T > {
+    Interval< T > withUpperBound(Bound< T > upper);
 
 
-        /**
-         * Returns the value of this bound
-         *
-         * @return the value of this bound
-         *
-         * @since 0.0.6
-         */
-        T getBoundValue();
+    /**
+     * Returns a copy of this Interval with the set upper value.
+     *
+     * @param value the value to set for the upper bound
+     *
+     * @return a copy of this instance with the set upper value
+     *
+     * @since 0.0.6
+     */
+    Interval< T > withUpperValue(T value);
 
 
-        /**
-         * Returns the {@link BoundKind} of this bound
-         *
-         * @return a {@link BoundKind}
-         *
-         * @since 0.0.6
-         */
-        BoundKind getBoundKind();
+    /**
+     * Returns a copy of this Interval with the set lower value.
+     *
+     * @param value the value to set for the lower bound
+     *
+     * @return a copy of this instance with the set lower value
+     *
+     * @since 0.0.6
+     */
+    Interval< T > withLowerValue(T value);
 
 
-        /**
-         * Depicts the kind of a bound.
-         *
-         * @since 0.0.6
-         */
-        enum BoundKind {
-            INCLUSIVE,
-            EXCLUSIVE
-        }
-
-    }
+    /**
+     * Returns a new instance with the specified lower bound
+     *
+     * @param lower the new lower bound
+     *
+     * @return a new instance with the passed lower bound
+     *
+     * @since 0.0.6
+     */
+    Interval< T > withLowerBound(Bound< T > lower);
 
 
     /**
@@ -70,16 +78,47 @@ public interface Interval< T > extends DomainContainer< T > {
     @Nonnull
     default Boolean matchesUpper(T value, @Nonnull Comparator< T > comparator) {
 
-        T upperValue = getUpperBound().getBoundValue();
+        T upperValue = getUpperBoundValue();
 
         int result = comparator.compare(upperValue, value);
 
-        if (getUpperBound().getBoundKind() == Bound.BoundKind.INCLUSIVE) {
+        if (getUpperKind() == Bound.BoundKind.INCLUSIVE) {
             return result >= 0;
         }
 
         return result > 0;
     }
+
+
+    /**
+     * Returns the value of the upper bound
+     *
+     * @return the value of the upper bound
+     *
+     * @see Bound#getBoundValue()
+     * @since 0.0.6
+     */
+    T getUpperBoundValue();
+
+
+    /**
+     * Returns the upper bound of this interval
+     *
+     * @return the upper bound
+     *
+     * @since 0.0.6
+     */
+    Bound< T > getUpperBound();
+
+
+    /**
+     * Returns the {@link BoundKind} of the upper {@link Bound}
+     *
+     * @return the {@link BoundKind} of the upper {@link Bound}
+     *
+     * @since 0.0.6
+     */
+    BoundKind getUpperKind();
 
 
     /**
@@ -98,26 +137,16 @@ public interface Interval< T > extends DomainContainer< T > {
     @Nonnull
     default Boolean matchesLower(T value, @Nonnull Comparator< T > comparator) {
 
-        T lowerValue = getLowerBound().getBoundValue();
+        T lowerValue = getLowerBoundValue();
 
         int result = comparator.compare(lowerValue, value);
 
-        if (getLowerBound().getBoundKind() == Bound.BoundKind.INCLUSIVE) {
+        if (getLowerKind() == Bound.BoundKind.INCLUSIVE) {
             return result <= 0;
         }
 
         return result < 0;
     }
-
-
-    /**
-     * Returns the upper bound of this interval
-     *
-     * @return the upper bound
-     *
-     * @since 0.0.6
-     */
-    Bound< T > getUpperBound();
 
 
     /**
@@ -128,5 +157,26 @@ public interface Interval< T > extends DomainContainer< T > {
      * @since 0.0.6
      */
     Bound< T > getLowerBound();
+
+
+    /**
+     * Returns the value of the lower bound
+     *
+     * @return the value of the lower bound
+     *
+     * @see Bound#getBoundValue()
+     * @since 0.0.6
+     */
+    T getLowerBoundValue();
+
+
+    /**
+     * Returns the {@link BoundKind} of the lower {@link Bound}
+     *
+     * @return the {@link BoundKind} of the lower {@link Bound}
+     *
+     * @since 0.0.6
+     */
+    BoundKind getLowerKind();
 
 }

@@ -2,16 +2,20 @@ package tomconn.growthapi.implementations.growthprofile;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tomconn.growthapi.implementations.requirementhelpers.PrimitiveRequirementHelper;
-import tomconn.growthapi.interfaces.growthprofile.BaseGrowthProfile;
+import tomconn.growthapi.implementations.growthprofile.probability.math.function.container.DomainContainers;
+import tomconn.growthapi.interfaces.base.GrowthCondition;
+import tomconn.growthapi.interfaces.growthprofile.base.BaseGrowthProfile;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Bound;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
+import tomconn.growthapi.interfaces.requirementhelpers.BaseRequirementHelper;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -24,22 +28,25 @@ import java.util.stream.Stream;
  */
 abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBaseGrowthProfile< E, P > > implements BaseGrowthProfile< E, P > {
 
-    protected PrimitiveRequirementHelper< E > helper;
+    @NotNull
+    private BaseRequirementHelper< E > helper;
 
-    protected int minLightLevel = Integer.MIN_VALUE;
-    protected int maxLightLevel = Integer.MAX_VALUE;
+    @NotNull
+    private Interval< Integer > lightLevelInterval = DomainContainers.intervalOfInclusive(15, 0, Integer::compareTo);
 
-    protected float minTemperature = Float.MIN_VALUE;
-    protected float maxTemperature = Float.MAX_VALUE;
+    @NotNull
+    private Interval< Float > temperatureInterval = DomainContainers.intervalOfInclusive(Float.MAX_VALUE, Float.MIN_VALUE, Float::compareTo);
 
-    protected Collection< Biome > whitelistedBiomes = new ArrayList<>();
-    protected Collection< Biome > blacklistedBiomes = new ArrayList<>();
+    @NotNull
+    private Collection< Biome > whitelistedBiomes = new ArrayList<>();
+    @NotNull
+    private Collection< Biome > blacklistedBiomes = new ArrayList<>();
 
     /**
      * SkyAffinity depicts whether a block likes (true) being under the sun or not (false)
      */
     @Nullable
-    protected Boolean skyAffinity = null;
+    private Boolean skyAffinity = null;
 
 
     /**
@@ -49,7 +56,7 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      *
      * @since 0.0.5
      */
-    public AbstractBaseGrowthProfile(PrimitiveRequirementHelper< E > helper) {
+    AbstractBaseGrowthProfile(@Nonnull BaseRequirementHelper< E > helper) {
 
         this.helper = helper;
     }
@@ -62,33 +69,29 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      */
     @Nonnull
     @Override
-    public List< Predicate< E > > liquidate() {
+    public List< GrowthCondition< E > > liquidate() {
 
-        List< Predicate< E > > ret = new ArrayList<>();
+        List< GrowthCondition< E > > ret = new ArrayList<>();
 
         ret.add(
-                helper.lightlevelMatches(
-                        lightLevel -> lightLevel <= maxLightLevel && lightLevel >= minLightLevel
-                )
+                helper.intervalLightLevel(lightLevelInterval)
         );
 
         ret.add(
-                helper.temperatureMatches(
-                        temperature -> temperature <= maxTemperature && temperature >= minTemperature
-                )
+                helper.intervalTemperature(temperatureInterval)
         );
 
         ret.add(
-                helper.blockHasBiomes(whitelistedBiomes)
+                helper.whitelistBiomes(whitelistedBiomes)
         );
 
         ret.add(
-                helper.blockDoesNotHaveBiomes(blacklistedBiomes)
+                helper.blacklistBiomes(blacklistedBiomes)
         );
 
         if (skyAffinity != null) {
             ret.add(
-                    skyAffinity ? helper.blockMustSeeSky() : helper.blockMustntSeeSky()
+                    skyAffinity ? helper.mustSeeSky() : helper.mustntSeeSky()
             );
         }
 
@@ -104,13 +107,14 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
     /**
      * {@inheritDoc}
      *
-     * @since 0.0.5
+     * @since 0.0.6
      */
     @Override
     public int getMinLightLevel() {
 
-        return minLightLevel;
+        return lightLevelInterval.getLowerBoundValue();
     }
+
 
 
     /**
@@ -121,7 +125,7 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
     @Override
     public int getMaxLightLevel() {
 
-        return maxLightLevel;
+        return lightLevelInterval.getUpperBoundValue();
     }
 
 
@@ -131,9 +135,9 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public float getMinTemperature() {
+    public void setMaxLightLevel(int maxLightLevel) {
 
-        return minTemperature;
+        this.lightLevelInterval = this.lightLevelInterval.withUpperBound(DomainContainers.boundOfInclusive(maxLightLevel));
     }
 
 
@@ -143,9 +147,9 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public float getMaxTemperature() {
+    public void setMinLightLevel(int minLightLevel) {
 
-        return maxTemperature;
+        this.lightLevelInterval = this.lightLevelInterval.withLowerBound(DomainContainers.boundOfInclusive(minLightLevel));
     }
 
 
@@ -196,9 +200,9 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public void setMinLightLevel(int minLightLevel) {
+    public Bound< Float > getLowerTemperatureBound() {
 
-        this.minLightLevel = minLightLevel;
+        return temperatureInterval.getLowerBound();
     }
 
 
@@ -208,9 +212,33 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public void setMaxLightLevel(int maxLightLevel) {
+    public Bound< Float > getUpperTemperatureBound() {
 
-        this.maxLightLevel = maxLightLevel;
+        return temperatureInterval.getUpperBound();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public void setUpperTemperatureBound(Bound< Float > bound) {
+
+        this.temperatureInterval = this.temperatureInterval.withUpperBound(bound);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 0.0.6
+     */
+    @Override
+    public void setLowerTemperatureBound(Bound< Float > bound) {
+
+        this.temperatureInterval = this.temperatureInterval.withLowerBound(bound);
     }
 
 
@@ -220,31 +248,7 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public void setMinTemperature(float minTemperature) {
-
-        this.minTemperature = minTemperature;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     *
-     * @since 0.0.5
-     */
-    @Override
-    public void setMaxTemperature(float maxTemperature) {
-
-        this.maxTemperature = maxTemperature;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     *
-     * @since 0.0.5
-     */
-    @Override
-    public void setWhitelistedBiomes(Collection< Biome > whitelistedBiomes) {
+    public void setWhitelistedBiomes(@Nonnull Collection< Biome > whitelistedBiomes) {
 
         this.whitelistedBiomes = whitelistedBiomes;
     }
@@ -256,7 +260,7 @@ abstract class AbstractBaseGrowthProfile< E extends Event, P extends AbstractBas
      * @since 0.0.5
      */
     @Override
-    public void setBlacklistedBiomes(Collection< Biome > blacklistedBiomes) {
+    public void setBlacklistedBiomes(@Nonnull Collection< Biome > blacklistedBiomes) {
 
         this.blacklistedBiomes = blacklistedBiomes;
     }
