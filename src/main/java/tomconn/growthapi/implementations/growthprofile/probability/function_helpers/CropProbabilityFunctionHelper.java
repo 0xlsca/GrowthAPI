@@ -11,6 +11,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.base.tuple.TuplePr
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
@@ -44,7 +45,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals) {
+    public ProbabilityFunction< Pre > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -58,7 +59,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals) {
+    public ProbabilityFunction< Pre > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -72,7 +73,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals) {
+    public ProbabilityFunction< Pre > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -86,7 +87,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome > > > tuples) {
+    public ProbabilityFunction< Pre > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.biomeTupledChance(tuples);
@@ -102,7 +103,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos > > > tuples) {
+    public ProbabilityFunction< Pre > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.blockPosTupleChance(tuples);
@@ -115,7 +116,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer > > > tuples) {
+    public ProbabilityFunction< Pre > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.lightLevelTupleChance(tuples);
@@ -128,7 +129,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > skyChance(Probability ifCanSee, Probability ifCannotSee) {
+    public ProbabilityFunction< Pre > skyChance(CoDomainContainer< Probability > ifCanSee, CoDomainContainer< Probability > ifCannotSee) {
 
         return tupleHelper.skyChance(ifCanSee, ifCannotSee);
     }
@@ -140,7 +141,7 @@ class CropProbabilityFunctionHelper implements ProbabilityFunctionHelper< Pre > 
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< Pre > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float > > > tuples) {
+    public ProbabilityFunction< Pre > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.temperatureTupleChance(tuples);

@@ -9,6 +9,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.base.tuple.TuplePr
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
 
 import java.util.Arrays;
@@ -35,7 +36,7 @@ abstract class AbstractTupleFunctionHelper< E extends Event > extends AbstractPr
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome > > > tuples) {
+    public ProbabilityFunction< E > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tailorFunction(tuples, e -> supplyHelper(e).getBiome());
@@ -48,7 +49,7 @@ abstract class AbstractTupleFunctionHelper< E extends Event > extends AbstractPr
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos > > > tuples) {
+    public ProbabilityFunction< E > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tailorFunction(tuples, e -> supplyHelper(e).getBlockBos());
@@ -61,7 +62,7 @@ abstract class AbstractTupleFunctionHelper< E extends Event > extends AbstractPr
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer > > > tuples) {
+    public ProbabilityFunction< E > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tailorFunction(tuples, e -> supplyHelper(e).getLightLevel());
@@ -74,9 +75,9 @@ abstract class AbstractTupleFunctionHelper< E extends Event > extends AbstractPr
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > skyChance(Probability ifCanSee, Probability ifCannotSee) {
+    public ProbabilityFunction< E > skyChance(CoDomainContainer< Probability > ifCanSee, CoDomainContainer< Probability > ifCannotSee) {
 
-        Collection< ProbabilityFunctionTuple< Boolean, SingleValueContainer< Boolean > > > tuples =
+        Collection< ProbabilityFunctionTuple< Boolean, SingleValueContainer< Boolean >, ? > > tuples =
                 Arrays.asList(
                         tupleOf(singleContainerOf(true), ifCanSee),
                         tupleOf(singleContainerOf(false), ifCannotSee)
@@ -92,7 +93,7 @@ abstract class AbstractTupleFunctionHelper< E extends Event > extends AbstractPr
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float > > > tuples) {
+    public ProbabilityFunction< E > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tailorFunction(tuples, e -> supplyHelper(e).getTemperature());

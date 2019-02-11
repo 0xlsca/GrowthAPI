@@ -2,6 +2,7 @@ package tomconn.growthapi.implementations.growthprofile.probability.math;
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
 /**
@@ -23,9 +24,9 @@ public interface ProbabilityFunctions {
      *
      * @since 0.0.6
      */
-    static < T, C extends DomainContainer< T > > ProbabilityFunctionTuple< T, C > tupleOf(C container, Probability probability) {
+    static < T, C extends DomainContainer< T > > ProbabilityFunctionTuple< T, C, ? > tupleOf(C container, CoDomainContainer< Probability > probability) {
 
-        return new FunctionTuple<>(container, probability);
+        return new DefaultFunctionTuple<>(container, probability);
     }
 
 }

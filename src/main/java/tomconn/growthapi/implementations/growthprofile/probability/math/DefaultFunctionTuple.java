@@ -2,6 +2,7 @@ package tomconn.growthapi.implementations.growthprofile.probability.math;
 
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
 import java.util.Objects;
@@ -10,30 +11,30 @@ import java.util.Objects;
  * Default implementation of {@link ProbabilityFunctionTuple}
  *
  * @param <T> the type of the domain
- * @param <C> the container in which the domain-value is stored
+ * @param <D> the container in which the domain-value is stored
  *
  * @since 0.0.6
  */
-class FunctionTuple< T, C extends DomainContainer< T > > implements ProbabilityFunctionTuple< T, C > {
+class DefaultFunctionTuple< T, D extends DomainContainer< T >, C extends CoDomainContainer< Probability > > implements ProbabilityFunctionTuple< T, D, C > {
 
 
-    private final C container;
-    private final Probability probability;
+    private final D container;
+    private final C probability;
 
 
     /**
      * Default constructor.
      *
-     * @param container   the container
+     * @param domain   the domain
      * @param probability the probability
      *
      * @since 0.0.6
      */
-    FunctionTuple(C container, Probability probability) {
+    DefaultFunctionTuple(D domain, C probability) {
 
-        Objects.requireNonNull(container);
+        Objects.requireNonNull(domain);
 
-        this.container = container;
+        this.container = domain;
         this.probability = probability;
     }
 
@@ -44,7 +45,7 @@ class FunctionTuple< T, C extends DomainContainer< T > > implements ProbabilityF
      * @since 0.0.6
      */
     @Override
-    public C getDomainContainer() {
+    public D getDomainContainer() {
 
         return container;
     }
@@ -56,7 +57,7 @@ class FunctionTuple< T, C extends DomainContainer< T > > implements ProbabilityF
      * @since 0.0.6
      */
     @Override
-    public Probability getProbability() {
+    public C getProbabilityContainer() {
 
         return probability;
     }

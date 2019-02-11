@@ -17,18 +17,6 @@ import java.util.Collection;
 public interface TemperatureIntervalProbabilityMethods< E extends Event > {
 
     /**
-     * This method tailors a function which returns a chance-value based on the passed intervals
-     *
-     * @param intervals the stages, presented as a {@link Tuple}-{@link Collection}
-     *
-     * @return a function which is based on the passed {@link Collection}
-     *
-     * @since 0.0.6
-     */
-    ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals);
-
-
-    /**
      * A vararg-based wrapper for {@link #temperatureIntervalChance(Collection)}
      *
      * @param intervals the stages
@@ -38,10 +26,22 @@ public interface TemperatureIntervalProbabilityMethods< E extends Event > {
      * @see #temperatureIntervalChance(Collection)
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > temperatureIntervalChance(ProbabilityFunctionTuple< Float, Interval< Float > >... intervals) {
+    default ProbabilityFunction< E > temperatureIntervalChance(ProbabilityFunctionTuple< Float, Interval< Float >, ? >... intervals) {
 
         return temperatureIntervalChance(Arrays.asList(intervals));
     }
+
+
+    /**
+     * This method tailors a function which returns a chance-value based on the passed intervals
+     *
+     * @param intervals the stages, presented as a {@link Tuple}-{@link Collection}
+     *
+     * @return a function which is based on the passed {@link Collection}
+     *
+     * @since 0.0.6
+     */
+    ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float >, ? > > intervals);
 
 
 }

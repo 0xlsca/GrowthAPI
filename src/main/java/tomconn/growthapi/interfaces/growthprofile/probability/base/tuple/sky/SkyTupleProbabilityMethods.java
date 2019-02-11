@@ -3,6 +3,7 @@ package tomconn.growthapi.interfaces.growthprofile.probability.base.tuple.sky;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 
 /**
  * Provides methods which rely on whether or not the block has a los to the sky.
@@ -21,6 +22,6 @@ public interface SkyTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > skyChance(Probability ifCanSee, Probability ifCannotSee);
+    ProbabilityFunction< E > skyChance(CoDomainContainer< Probability > ifCanSee, CoDomainContainer< Probability > ifCannotSee);
 
 }

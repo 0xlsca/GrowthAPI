@@ -6,6 +6,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Math
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
@@ -27,19 +28,20 @@ import java.util.stream.Stream;
 public abstract class AbstractProbabilityFunctionHelper< E extends Event > {
 
     /**
-     * Tailors a {@link ProbabilityFunction} based on the passed {@link ProbabilityFunctionTuple}s and supplier for the value
+     * Tailors a {@link ProbabilityFunction} based on the passed {@link ProbabilityFunctionTuple}s and supplier for the
+     * value
      *
      * @param tuples        the tuples
      * @param valueSupplier the supplier for the value
      * @param <T>           the type of the domain
-     * @param <C>           a {@link DomainContainer}
+     * @param <D>           a {@link DomainContainer}
      *
      * @return a {@link ProbabilityFunction} which is based on the passed arguments
      *
      * @since 0.0.6
      */
     @Nonnull
-    protected < T, C extends DomainContainer< T > > ProbabilityFunction< E > tailorFunction(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, @Nonnull Function< E, T > valueSupplier) {
+    protected < T, D extends DomainContainer< T > > ProbabilityFunction< E > tailorFunction(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, D, ? > > tuples, @Nonnull Function< E, T > valueSupplier) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(valueSupplier);
@@ -62,20 +64,21 @@ public abstract class AbstractProbabilityFunctionHelper< E extends Event > {
      *
      * @return a single {@link Interval}
      *
-     * @throws MathematicalFunction.MissingMappingException if there was no mathing {@link Interval} present within the {@link Collection}
-     * @throws MathematicalFunction.MultiMappingException   if there were multiple matching {@link Interval}s present within the
+     * @throws MathematicalFunction.MissingMappingException if there was no mathing {@link Interval} present within the
      *                                                      {@link Collection}
+     * @throws MathematicalFunction.MultiMappingException   if there were multiple matching {@link Interval}s present
+     *                                                      within the {@link Collection}
      * @see #checkMappings(Collection, Object)
      * @since 0.0.6
      */
-    private < T, C extends DomainContainer< T > > Probability fetchProbability(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, @Nonnull T value) {
+    private < T, C extends DomainContainer< T > > Probability fetchProbability(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C, ? > > tuples, @Nonnull T value) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(value);
 
-        Stream< Probability > stream = filteredStream(tuples, value);
+        Stream< CoDomainContainer< Probability > > stream = filteredStream(tuples, value);
 
-        Set< Probability > set = stream.collect(Collectors.toSet());
+        Set< Probability > set = stream.map(CoDomainContainer::getValue).collect(Collectors.toSet());
 
         checkMappings(set, value);
 
@@ -98,14 +101,14 @@ public abstract class AbstractProbabilityFunctionHelper< E extends Event > {
      *
      * @since 0.0.6
      */
-    private < T, C extends DomainContainer< T > > Stream< Probability > filteredStream(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C > > tuples, T value) {
+    private < T, C extends DomainContainer< T > > Stream< CoDomainContainer< Probability > > filteredStream(@Nonnull Collection< ? extends ProbabilityFunctionTuple< T, C, ? > > tuples, T value) {
 
         Objects.requireNonNull(tuples);
         Objects.requireNonNull(value);
 
         return tuples.stream()
                 .filter(t -> t.getDomainContainer().isValuePresent(value))
-                .map(ProbabilityFunctionTuple::getProbability);
+                .map(ProbabilityFunctionTuple::getProbabilityContainer);
     }
 
 
@@ -117,7 +120,8 @@ public abstract class AbstractProbabilityFunctionHelper< E extends Event > {
      * @param <T>           the type of the domain
      *
      * @throws MathematicalFunction.MissingMappingException thrown if the {@link Collection} is empty
-     * @throws MathematicalFunction.MultiMappingException   thrown if there is more than one mapping within the {@link Collection}
+     * @throws MathematicalFunction.MultiMappingException   thrown if there is more than one mapping within the {@link
+     *                                                      Collection}
      * @since 0.0.6
      */
     private < T > void checkMappings(@Nonnull Collection< Probability > probabilities, @Nonnull T value) throws MathematicalFunction.MissingMappingException, MathematicalFunction.MultiMappingException {

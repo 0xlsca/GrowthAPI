@@ -27,7 +27,10 @@ public interface LightLevelTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer > > > tuples);
+    default ProbabilityFunction< E > lightLevelTupleChance(ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer >, ? >... tuples) {
+
+        return lightLevelTupleChance(Arrays.asList(tuples));
+    }
 
 
     /**
@@ -39,9 +42,6 @@ public interface LightLevelTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > lightLevelTupleChance(ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer > >... tuples) {
-
-        return lightLevelTupleChance(Arrays.asList(tuples));
-    }
+    ProbabilityFunction< E > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer >, ? > > tuples);
 
 }

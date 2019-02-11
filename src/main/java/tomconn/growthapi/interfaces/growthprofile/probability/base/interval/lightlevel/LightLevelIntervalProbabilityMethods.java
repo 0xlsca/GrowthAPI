@@ -17,18 +17,6 @@ import java.util.Collection;
 public interface LightLevelIntervalProbabilityMethods< E extends Event > {
 
     /**
-     * This method tailors a function which returns a chance-value based on the passed intervals
-     *
-     * @param intervals the stages, presented as a {@link Tuple}-{@link Collection}
-     *
-     * @return a function which is based on the passed {@link Collection}
-     *
-     * @since 0.0.6
-     */
-    ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals);
-
-
-    /**
      * A vararg-based wrapper for {@link #lightLevelIntervalChance(Collection)}
      *
      * @param stages the stages
@@ -38,9 +26,21 @@ public interface LightLevelIntervalProbabilityMethods< E extends Event > {
      * @see #lightLevelIntervalChance(Collection)
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > lightLevelIntervalChance(ProbabilityFunctionTuple< Integer, Interval< Integer > >... stages) {
+    default ProbabilityFunction< E > lightLevelIntervalChance(ProbabilityFunctionTuple< Integer, Interval< Integer >, ? >... stages) {
 
         return lightLevelIntervalChance(Arrays.asList(stages));
     }
+
+
+    /**
+     * This method tailors a function which returns a chance-value based on the passed intervals
+     *
+     * @param intervals the stages, presented as a {@link Tuple}-{@link Collection}
+     *
+     * @return a function which is based on the passed {@link Collection}
+     *
+     * @since 0.0.6
+     */
+    ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer >, ? > > intervals);
 
 }

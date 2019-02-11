@@ -26,7 +26,10 @@ public interface BiomeTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome > > > tuples);
+    default ProbabilityFunction< E > biomeTupledChance(ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome >, ? >... tuples) {
+
+        return biomeTupledChance(Arrays.asList(tuples));
+    }
 
 
     /**
@@ -38,9 +41,6 @@ public interface BiomeTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > biomeTupledChance(ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome > >... tuples) {
-
-        return biomeTupledChance(Arrays.asList(tuples));
-    }
+    ProbabilityFunction< E > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome >, ? > > tuples);
 
 }

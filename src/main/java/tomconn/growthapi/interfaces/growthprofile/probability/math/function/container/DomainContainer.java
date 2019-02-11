@@ -9,6 +9,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Prob
  *
  * @since 0.0.6
  */
+@FunctionalInterface
 public interface DomainContainer< T > {
 
     /**

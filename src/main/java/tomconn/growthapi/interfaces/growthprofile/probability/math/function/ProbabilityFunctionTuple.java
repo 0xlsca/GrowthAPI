@@ -1,6 +1,7 @@
 package tomconn.growthapi.interfaces.growthprofile.probability.math.function;
 
 
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.DomainContainer;
 
 /**
@@ -10,7 +11,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.cont
  *
  * @since 0.0.6
  */
-public interface ProbabilityFunctionTuple< T, C extends DomainContainer< T > > {
+public interface ProbabilityFunctionTuple< T, D extends DomainContainer< T >, C extends CoDomainContainer< Probability > > {
 
     /**
      * Returns the {@link DomainContainer} of this tuple
@@ -19,16 +20,17 @@ public interface ProbabilityFunctionTuple< T, C extends DomainContainer< T > > {
      *
      * @since 0.0.6
      */
-    C getDomainContainer();
+    D getDomainContainer();
 
 
     /**
+     * todo
      * Returns the chance to which the domain-value maps
      *
      * @return the chance
      *
      * @since 0.0.6
      */
-    Probability getProbability();
+    C getProbabilityContainer();
 
 }

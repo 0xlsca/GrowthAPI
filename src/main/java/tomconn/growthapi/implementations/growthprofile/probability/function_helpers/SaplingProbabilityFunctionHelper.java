@@ -11,6 +11,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.base.tuple.TuplePr
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunctionTuple;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.SingleValueDomainContainer;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.interval.Interval;
 
@@ -43,7 +44,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
         return intervalHelper.blockPosIntervalChance(intervals);
@@ -56,7 +57,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
         return intervalHelper.lightLevelIntervalChance(intervals);
@@ -69,7 +70,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
         return intervalHelper.temperatureIntervalChance(intervals);
@@ -82,7 +83,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome > > > tuples) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > biomeTupledChance(Collection< ProbabilityFunctionTuple< Biome, SingleValueDomainContainer< Biome >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.biomeTupledChance(tuples);
@@ -95,7 +96,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos > > > tuples) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.blockPosTupleChance(tuples);
@@ -108,7 +109,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer > > > tuples) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > lightLevelTupleChance(Collection< ProbabilityFunctionTuple< Integer, SingleValueDomainContainer< Integer >, ? > > tuples) {
 
         Objects.requireNonNull(tuples);
         return tupleHelper.lightLevelTupleChance(tuples);
@@ -121,7 +122,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > skyChance(Probability ifCanSee, Probability ifCannotSee) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > skyChance(CoDomainContainer< Probability > ifCanSee, CoDomainContainer< Probability > ifCannotSee) {
 
         return tupleHelper.skyChance(ifCanSee, ifCannotSee);
     }
@@ -133,7 +134,7 @@ class SaplingProbabilityFunctionHelper implements ProbabilityFunctionHelper< Sap
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< SaplingGrowTreeEvent > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float > > > tuples) {
+    public ProbabilityFunction< SaplingGrowTreeEvent > temperatureTupleChance(Collection< ProbabilityFunctionTuple< Float, SingleValueDomainContainer< Float >, ? > > tuples) {
 
         return tupleHelper.temperatureTupleChance(tuples);
     }

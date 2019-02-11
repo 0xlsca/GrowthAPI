@@ -26,7 +26,7 @@ abstract class AbstractIntervalProbabilityFunctionHelper< E extends Event > exte
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals) {
+    public ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -42,7 +42,7 @@ abstract class AbstractIntervalProbabilityFunctionHelper< E extends Event > exte
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer > > > intervals) {
+    public ProbabilityFunction< E > lightLevelIntervalChance(Collection< ProbabilityFunctionTuple< Integer, Interval< Integer >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 
@@ -56,7 +56,7 @@ abstract class AbstractIntervalProbabilityFunctionHelper< E extends Event > exte
      * @since 0.0.6
      */
     @Override
-    public ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float > > > intervals) {
+    public ProbabilityFunction< E > temperatureIntervalChance(Collection< ProbabilityFunctionTuple< Float, Interval< Float >, ? > > intervals) {
 
         Objects.requireNonNull(intervals);
 

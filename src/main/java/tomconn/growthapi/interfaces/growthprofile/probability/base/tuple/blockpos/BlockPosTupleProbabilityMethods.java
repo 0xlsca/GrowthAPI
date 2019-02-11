@@ -27,7 +27,10 @@ public interface BlockPosTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    ProbabilityFunction< E > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos > > > tuples);
+    default ProbabilityFunction< E > blockPosTupleChance(ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos >, ? >... tuples) {
+
+        return blockPosTupleChance(Arrays.asList(tuples));
+    }
 
 
     /**
@@ -39,9 +42,6 @@ public interface BlockPosTupleProbabilityMethods< E extends Event > {
      *
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > blockPosTupleChance(ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos > >... tuples) {
-
-        return blockPosTupleChance(Arrays.asList(tuples));
-    }
+    ProbabilityFunction< E > blockPosTupleChance(Collection< ProbabilityFunctionTuple< BlockPos, SingleValueDomainContainer< BlockPos >, ? > > tuples);
 
 }

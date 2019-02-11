@@ -20,18 +20,6 @@ public interface BlockPosIntervalProbabilityMethods< E extends Event > {
 
 
     /**
-     * This method tailors a function which returns a probability based on the passed intervals
-     *
-     * @param intervals the intervals, presented as a {@link Tuple}-{@link List}
-     *
-     * @return a function which is based on the passed {@link Collection}
-     *
-     * @since 0.0.6
-     */
-    ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > > > intervals);
-
-
-    /**
      * A vararg-based wrapper for {@link #blockPosIntervalChance(Collection)}
      *
      * @param intervals the intervals
@@ -41,10 +29,22 @@ public interface BlockPosIntervalProbabilityMethods< E extends Event > {
      * @see #blockPosIntervalChance(Collection)
      * @since 0.0.6
      */
-    default ProbabilityFunction< E > blockPosIntervalChance(ProbabilityFunctionTuple< BlockPos, Interval< BlockPos > >... intervals) {
+    default ProbabilityFunction< E > blockPosIntervalChance(ProbabilityFunctionTuple< BlockPos, Interval< BlockPos >, ? >... intervals) {
 
         return blockPosIntervalChance(Arrays.asList(intervals));
     }
+
+
+    /**
+     * This method tailors a function which returns a probability based on the passed intervals
+     *
+     * @param intervals the intervals, presented as a {@link Tuple}-{@link List}
+     *
+     * @return a function which is based on the passed {@link Collection}
+     *
+     * @since 0.0.6
+     */
+    ProbabilityFunction< E > blockPosIntervalChance(Collection< ProbabilityFunctionTuple< BlockPos, Interval< BlockPos >, ? > > intervals);
 
 
 }
