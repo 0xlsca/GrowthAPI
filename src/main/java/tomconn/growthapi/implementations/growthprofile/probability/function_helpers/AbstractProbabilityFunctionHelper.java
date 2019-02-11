@@ -49,7 +49,7 @@ public abstract class AbstractProbabilityFunctionHelper< E extends Event > {
         return e -> {
             T value = valueSupplier.apply(e);
 
-            return fetchProbability(tuples, value);
+            return () -> fetchProbability(tuples, value);
         };
     }
 

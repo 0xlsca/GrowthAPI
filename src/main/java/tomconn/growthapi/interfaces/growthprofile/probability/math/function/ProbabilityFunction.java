@@ -1,6 +1,7 @@
 package tomconn.growthapi.interfaces.growthprofile.probability.math.function;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import tomconn.growthapi.interfaces.growthprofile.probability.math.function.container.CoDomainContainer;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -12,7 +13,7 @@ import java.util.function.Function;
  * @since 0.0.6
  */
 @FunctionalInterface
-public interface ProbabilityFunction< E extends Event > extends Function< E, Probability > {
+public interface ProbabilityFunction< E extends Event > extends Function< E, CoDomainContainer< Probability > > {
 
     /**
      * {@inheritDoc}
@@ -25,6 +26,6 @@ public interface ProbabilityFunction< E extends Event > extends Function< E, Pro
      */
     @Nonnull
     @Override
-    Probability apply(E e);
+    CoDomainContainer< Probability > apply(E e);
 
 }

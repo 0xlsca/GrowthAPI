@@ -29,7 +29,7 @@ abstract class AbstractProbabilityGrowthProfile< E extends Event > implements Pr
      */
     AbstractProbabilityGrowthProfile() {
 
-        probabilityFunction = e -> Probabilities.ofFactor(1.0);
+        probabilityFunction = e -> () -> Probabilities.ofFactor(1.0);
     }
 
 
@@ -56,7 +56,7 @@ abstract class AbstractProbabilityGrowthProfile< E extends Event > implements Pr
      */
     AbstractProbabilityGrowthProfile(double probability) {
 
-        probabilityFunction = e -> Probabilities.ofFactor(probability);
+        probabilityFunction = e -> () -> Probabilities.ofFactor(probability);
     }
 
 
@@ -82,7 +82,7 @@ abstract class AbstractProbabilityGrowthProfile< E extends Event > implements Pr
      */
     public void setChance(double probability) {
 
-        probabilityFunction = e -> Probabilities.ofFactor(probability);
+        probabilityFunction = e -> () -> Probabilities.ofFactor(probability);
     }
 
 
@@ -117,6 +117,7 @@ abstract class AbstractProbabilityGrowthProfile< E extends Event > implements Pr
 
         return getProbabilityFunction()
                 .apply(event)
+                .getValue()
                 .apply(getRandomFromEvent(event));
 
     }

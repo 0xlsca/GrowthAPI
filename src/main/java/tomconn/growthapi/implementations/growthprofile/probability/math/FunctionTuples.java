@@ -10,7 +10,7 @@ import tomconn.growthapi.interfaces.growthprofile.probability.math.function.cont
  *
  * @since 0.0.6
  */
-public interface ProbabilityFunctions {
+public interface FunctionTuples {
 
     /**
      * This is an entry method for optaining instances of {@link ProbabilityFunctionTuple}.

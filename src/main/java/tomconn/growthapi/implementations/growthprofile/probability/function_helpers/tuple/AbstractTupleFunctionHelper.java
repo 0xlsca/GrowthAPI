@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 
-import static tomconn.growthapi.implementations.growthprofile.probability.math.ProbabilityFunctions.tupleOf;
+import static tomconn.growthapi.implementations.growthprofile.probability.math.FunctionTuples.tupleOf;
 import static tomconn.growthapi.implementations.growthprofile.probability.math.function.container.DomainContainers.singleContainerOf;
 
 /**
