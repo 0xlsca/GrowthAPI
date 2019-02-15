@@ -1,9 +1,9 @@
-package tomconn.growthapi.implementations.event.helpers;
+package tomconn.growthapi.implementations.event.helper;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent;
-import tomconn.growthapi.interfaces.event.helpers.base_information.BlockClassProvider;
+import tomconn.growthapi.interfaces.event.helper.base_information.BlockClassProvider;
 
 /**
  * This is a utility class which shall help with retrieving information from

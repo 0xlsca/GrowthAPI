@@ -1,10 +1,10 @@
-package tomconn.growthapi.implementations.event.helpers;
+package tomconn.growthapi.implementations.event.helper;
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import org.jetbrains.annotations.Contract;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;

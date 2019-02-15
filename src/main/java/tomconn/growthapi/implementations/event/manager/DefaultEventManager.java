@@ -1,4 +1,4 @@
-package tomconn.growthapi.implementations.event;
+package tomconn.growthapi.implementations.event.manager;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
@@ -8,11 +8,11 @@ import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import tomconn.growthapi.implementations.event.handlers.SaplingGrowTreeEventHandler;
-import tomconn.growthapi.implementations.event.helpers.CropGrowPostEventHelper;
-import tomconn.growthapi.implementations.event.helpers.EventHelpers;
-import tomconn.growthapi.implementations.registry.Registries;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.implementations.event.handler.SaplingGrowTreeEventHandler;
+import tomconn.growthapi.implementations.event.helper.CropGrowPostEventHelper;
+import tomconn.growthapi.implementations.event.helper.EventHelpers;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
+import tomconn.growthapi.interfaces.event.manager.EventManager;
 import tomconn.growthapi.interfaces.registry.UnifiedRegistry;
 
 import javax.annotation.Nonnull;
@@ -27,7 +27,7 @@ import java.util.function.Predicate;
  *
  * @since 0.0.5
  */
-public class EventManager {
+class DefaultEventManager implements EventManager {
 
     static {
         MinecraftForge.TERRAIN_GEN_BUS.register(SaplingGrowTreeEventHandler.class);
@@ -38,7 +38,18 @@ public class EventManager {
         Attributes go here
          */
     @Nonnull
-    private UnifiedRegistry unifiedRegistry = Registries.newUnifiedRegistry();
+    private UnifiedRegistry unifiedRegistry;
+
+
+    /**
+     * This constructor is package-private
+     *
+     * @since 0.0.6
+     */
+    DefaultEventManager(UnifiedRegistry registry) {
+
+        this.unifiedRegistry = registry;
+    }
 
 
     /**

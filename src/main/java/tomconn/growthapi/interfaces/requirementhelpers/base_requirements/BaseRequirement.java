@@ -2,7 +2,7 @@ package tomconn.growthapi.interfaces.requirementhelpers.base_requirements;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 import tomconn.growthapi.interfaces.base.GrowthCondition;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 
 import java.util.function.Function;
 import java.util.function.Predicate;

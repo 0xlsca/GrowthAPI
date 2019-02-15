@@ -1,7 +1,7 @@
-package tomconn.growthapi.implementations.event.helpers;
+package tomconn.growthapi.implementations.event.helper;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 
 /**
  * Skeleton class of {@link BaseEventHelper}

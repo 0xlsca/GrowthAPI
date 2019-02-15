@@ -1,4 +1,4 @@
-package tomconn.growthapi.implementations.event.handlers;
+package tomconn.growthapi.implementations.event.handler;
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;

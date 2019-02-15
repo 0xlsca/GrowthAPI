@@ -1,8 +1,8 @@
 package tomconn.growthapi.implementations.requirementhelpers;
 
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
-import tomconn.growthapi.implementations.event.helpers.EventHelpers;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.implementations.event.helper.EventHelpers;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 import tomconn.growthapi.interfaces.requirementhelpers.BaseRequirementHelper;
 
 

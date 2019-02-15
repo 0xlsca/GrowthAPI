@@ -1,7 +1,7 @@
 package tomconn.growthapi.implementations.growthprofile.probability.function_helpers;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.MathematicalFunction;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.Probability;
 import tomconn.growthapi.interfaces.growthprofile.probability.math.function.ProbabilityFunction;

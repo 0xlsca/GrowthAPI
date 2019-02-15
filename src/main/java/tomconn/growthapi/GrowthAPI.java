@@ -7,8 +7,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import tomconn.growthapi.implementations.event.EventManager;
+import tomconn.growthapi.implementations.event.manager.EventManagers;
 import tomconn.growthapi.implementations.growthprofile.probability.math.function.Probabilities;
+import tomconn.growthapi.interfaces.event.manager.EventManager;
 import tomconn.growthapi.interfaces.registry.UnifiedRegistry;
 import tomconn.growthapi.runtimetests.RuntimeTest;
 
@@ -102,7 +103,7 @@ public class GrowthAPI {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
 
-        eventManager = new EventManager();
+        eventManager = EventManagers.newManager();
     }
 
 }

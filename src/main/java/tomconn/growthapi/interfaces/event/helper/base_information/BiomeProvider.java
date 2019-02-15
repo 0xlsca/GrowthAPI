@@ -1,4 +1,4 @@
-package tomconn.growthapi.interfaces.event.helpers.base_information;
+package tomconn.growthapi.interfaces.event.helper.base_information;
 
 import net.minecraft.world.biome.Biome;
 

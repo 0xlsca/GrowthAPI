@@ -1,8 +1,8 @@
 package tomconn.growthapi.implementations.growthprofile.probability.function_helpers.interval;
 
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import tomconn.growthapi.implementations.event.helpers.EventHelpers;
-import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
+import tomconn.growthapi.implementations.event.helper.EventHelpers;
+import tomconn.growthapi.interfaces.event.helper.BaseEventHelper;
 
 import javax.annotation.Nonnull;
 

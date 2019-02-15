@@ -1,47 +1,50 @@
-package tomconn.growthapi.implementations.event.helpers;
+package tomconn.growthapi.implementations.event.helper;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
+import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 
 import javax.annotation.Nonnull;
 
 /**
- * This is a utility class which shall help with retrieving information from
- * {@link Pre} events.
+ * This class is a utility class and helps with retrieving information from
+ * {@link SaplingGrowTreeEvent}s.
  * <p>
- * Please note that every helper is bound to be tied to exactly one event, so in case you have multiple events,
- * each of them will require a dedicated event-helper.
+ * Please note that each helper may only be assigned to one event, meaning you are required to instantiate a new
+ * helper for a new event.
  *
  * @since 0.0.5
  */
-class CropGrowPreEventHelper extends AbstractBaseEventHelper< Pre > {
-
+class SaplingGrowTreeEventHelper extends AbstractBaseEventHelper< SaplingGrowTreeEvent > {
 
     /**
      * Default constructor
      *
-     * @param event an instance of {@link Pre}
+     * @param event an instance of {@link SaplingGrowTreeEvent}
      *
      * @since 0.0.5
      */
-    CropGrowPreEventHelper(Pre event) {
+    public SaplingGrowTreeEventHelper(SaplingGrowTreeEvent event) {
 
         super(event);
     }
 
 
     /**
-     * {@inheritDoc}
+     * Returns the class of the block which triggered the event.
+     *
+     * @return the triggering block's class
      *
      * @since 0.0.5
      */
-    @Override
     public Class< ? extends Block > getBlockClass() {
 
-        return event.getState().getBlock().getClass();
+        World world = event.getWorld();
+        IBlockState blockState = world.getBlockState(event.getPos());
+        return blockState.getBlock().getClass();
     }
 
 
