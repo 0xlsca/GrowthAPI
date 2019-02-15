@@ -15,11 +15,11 @@ public class RuntimeTest {
 
         BaseGrowthProfile< Pre, ? > wheatProfile = BaseProfiles.cropGrowPre();
         wheatProfile.exactLight(13);
-        GrowthAPI.getRegistry().registerCropGrowPreProfile(WHEAT.getClass(), wheatProfile);
+        GrowthAPI.getUnifiedRegistry().registerCropGrowPreProfile(WHEAT.getClass(), wheatProfile);
 
         BaseGrowthProfile< SaplingGrowTreeEvent, ? > oakProfile = BaseProfiles.saplingGrowTree();
         oakProfile.skyAffinity(false);
-        GrowthAPI.getRegistry().registerSaplingProfile(BlockSapling.class, oakProfile);
+        GrowthAPI.getUnifiedRegistry().registerSaplingProfile(BlockSapling.class, oakProfile);
 
     }
 

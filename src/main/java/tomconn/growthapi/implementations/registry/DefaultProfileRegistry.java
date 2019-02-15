@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  *
  * @since 0.0.5
  */
-public class ProfileRegistry implements ProfileBasedRegistry {
+public class DefaultProfileRegistry implements ProfileBasedRegistry {
 
     /**
      * Crops (Pre)
@@ -29,6 +29,16 @@ public class ProfileRegistry implements ProfileBasedRegistry {
      */
     @Nonnull
     private Map< Class< ? extends Block >, BaseGrowthProfile< SaplingGrowTreeEvent, ? > > saplingMap = new HashMap<>();
+
+
+    /**
+     * This constructor is package-private
+     *
+     * @since 0.0.6
+     */
+    DefaultProfileRegistry() {
+
+    }
 
 
     /**
