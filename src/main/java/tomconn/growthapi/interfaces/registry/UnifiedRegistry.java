@@ -8,5 +8,5 @@ import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
  *
  * @since 0.0.5
  */
-public interface Registry extends ClassBasedRegistry, ProfileBasedRegistry {
+public interface UnifiedRegistry extends ClassBasedRegistry, ProfileBasedRegistry {
 }

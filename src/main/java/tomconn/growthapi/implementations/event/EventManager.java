@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import tomconn.growthapi.implementations.event.handlers.SaplingGrowTreeEventHandler;
 import tomconn.growthapi.implementations.event.helpers.CropGrowPostEventHelper;
 import tomconn.growthapi.implementations.event.helpers.EventHelpers;
-import tomconn.growthapi.implementations.registry.GrowthRegistry;
+import tomconn.growthapi.implementations.registry.Registries;
 import tomconn.growthapi.interfaces.event.helpers.BaseEventHelper;
-import tomconn.growthapi.interfaces.registry.Registry;
+import tomconn.growthapi.interfaces.registry.UnifiedRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -34,25 +34,25 @@ public class EventManager {
     }
 
 
-    /**
-     * Returns the currently help {@link Registry}
-     *
-     * @return the registry
-     *
-     * @since 0.0.5
-     */
-    @Nonnull
-    public Registry getRegistry() {
-
-        return registry;
-    }
-
-
     /*
         Attributes go here
          */
     @Nonnull
-    private Registry registry = new GrowthRegistry();
+    private UnifiedRegistry unifiedRegistry = Registries.newUnifiedRegistry();
+
+
+    /**
+     * Returns the currently help {@link UnifiedRegistry}
+     *
+     * @return the unifiedRegistry
+     *
+     * @since 0.0.5
+     */
+    @Nonnull
+    public UnifiedRegistry getUnifiedRegistry() {
+
+        return unifiedRegistry;
+    }
 
 
     /*
@@ -71,7 +71,7 @@ public class EventManager {
 
         BaseEventHelper helper = EventHelpers.saplingGrowTree(event);
 
-        Optional< Collection< ? extends Predicate< SaplingGrowTreeEvent > > > predicates = registry.getRequirementsForSapling(helper.getBlockClass());
+        Optional< Collection< ? extends Predicate< SaplingGrowTreeEvent > > > predicates = unifiedRegistry.getRequirementsForSapling(helper.getBlockClass());
 
         if (predicates.isPresent()) {
             event.setResult(
@@ -126,7 +126,7 @@ public class EventManager {
 
         CropGrowPostEventHelper helper = new CropGrowPostEventHelper(event);
 
-        Optional< Consumer< Post > > consumer = registry.getConsumerForCropPost(helper.getBlockClass());
+        Optional< Consumer< Post > > consumer = unifiedRegistry.getConsumerForCropPost(helper.getBlockClass());
 
         consumer.ifPresent(c -> c.accept(event));
     }
@@ -143,7 +143,7 @@ public class EventManager {
 
         BaseEventHelper helper = EventHelpers.cropPre(event);
 
-        Optional< Collection< ? extends Predicate< Pre > > > predicates = registry.getRequirementsForCropPre(helper.getBlockClass());
+        Optional< Collection< ? extends Predicate< Pre > > > predicates = unifiedRegistry.getRequirementsForCropPre(helper.getBlockClass());
 
         if (predicates.isPresent()) {
             event.setResult(

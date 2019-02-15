@@ -8,7 +8,7 @@ import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.interfaces.base.GrowthCondition;
 import tomconn.growthapi.interfaces.growthprofile.base.BaseGrowthProfile;
-import tomconn.growthapi.interfaces.registry.Registry;
+import tomconn.growthapi.interfaces.registry.UnifiedRegistry;
 import tomconn.growthapi.interfaces.registry.classbased.ClassBasedRegistry;
 import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
 
@@ -25,10 +25,10 @@ import java.util.function.Predicate;
  *
  * @since 0.0.5
  */
-public class GrowthRegistry implements Registry {
+public class DefaultUnifiedRegistry implements UnifiedRegistry {
 
-    private final ClassBasedRegistry classBasedRegistry = new tomconn.growthapi.implementations.registry.ClassBasedRegistry();
-    private final ProfileBasedRegistry profileBasedRegistry = new ProfileRegistry();
+    private final ClassBasedRegistry classBasedRegistry = Registries.newClassBasedRegistry();
+    private final ProfileBasedRegistry profileBasedRegistry = Registries.newProfileBasedRegistry();
 
     @Override
     public boolean registerCropPre(Class< ? extends Block > blockClass, Collection< GrowthCondition< Pre > > requirements) {

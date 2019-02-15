@@ -6,7 +6,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Post;
 import net.minecraftforge.event.world.BlockEvent.CropGrowEvent.Pre;
 import tomconn.growthapi.interfaces.base.GrowthCondition;
-import tomconn.growthapi.interfaces.registry.profilebased.ProfileBasedRegistry;
+import tomconn.growthapi.interfaces.registry.classbased.ClassBasedRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -17,11 +17,11 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * This class is our default implementation of the {@link tomconn.growthapi.interfaces.registry.classbased.ClassBasedRegistry} interface.
+ * This class is our default implementation of the {@link ClassBasedRegistry} interface.
  *
  * @since 0.0.5
  */
-public class ClassBasedRegistry implements tomconn.growthapi.interfaces.registry.classbased.ClassBasedRegistry {
+public class DefaultClassBasedRegistry implements ClassBasedRegistry {
 
     /**
      * Pre
@@ -41,11 +41,15 @@ public class ClassBasedRegistry implements tomconn.growthapi.interfaces.registry
     @Nonnull
     private Map< Class< ? extends Block >, Collection< GrowthCondition< SaplingGrowTreeEvent > > > saplingMap = new HashMap<>();
 
+
     /**
-     * Profiles
+     * This constructor is package-private
+     *
+     * @since 0.0.6
      */
-    @Nonnull
-    private ProfileBasedRegistry profileRegistry = new ProfileRegistry();
+    DefaultClassBasedRegistry() {
+
+    }
 
 
     /**
