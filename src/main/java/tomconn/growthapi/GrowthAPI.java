@@ -30,7 +30,6 @@ public class GrowthAPI {
 
 
     private static EventManager eventManager;
-    private static UnifiedRegistry unifiedRegistry;
 
 
     @Mod.Instance(modId)
@@ -96,7 +95,7 @@ public class GrowthAPI {
      */
     public static UnifiedRegistry getUnifiedRegistry() {
 
-        return unifiedRegistry;
+        return eventManager.getUnifiedRegistry();
     }
 
 
@@ -104,7 +103,6 @@ public class GrowthAPI {
     public void init(FMLInitializationEvent event) {
 
         eventManager = new EventManager();
-        unifiedRegistry = eventManager.getUnifiedRegistry();
     }
 
 }
