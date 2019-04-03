@@ -2,7 +2,6 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -12,6 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 apply plugin: "java"
+apply from: "repositories.gradle"
 apply from: "dependencies.gradle"
 
 
